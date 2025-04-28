@@ -7,15 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html {
-      scroll-behavior: smooth; /* Smooth scrolling enabled */
+      scroll-behavior: smooth;
     }
     body {
       margin: 0;
       padding: 20px;
       min-height: 100vh;
-      background-color: #ffffff; /* White background like Londr.com */
+      background-color: #ffffff; /* White background */
       font-family: 'Arial', sans-serif;
-      color: #495057; /* Regular body text color */
+      color: #495057; /* Body text color */
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -28,7 +28,7 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
     h1, h2 {
-      color: #1b2a4e; /* Dark navy blue heading text */
+      color: #1b2a4e; /* Heading text color */
     }
     h1 {
       font-size: 2.5em;
@@ -50,20 +50,36 @@
       padding: 12px 24px;
       font-size: 1em;
       color: white;
-      background-color: #0061f2; /* Londr.com bright blue */
+      background-color: #0061f2; /* Londr blue button */
       text-decoration: none;
       border-radius: 8px;
       transition: background-color 0.3s ease, transform 0.3s ease;
     }
     .button:hover {
-      background-color: #0056d2; /* Slightly darker blue on hover */
+      background-color: #0056d2; /* Slightly darker blue */
       transform: scale(1.05);
+    }
+    .card {
+      background: #ffffff;
+      padding: 30px;
+      margin-top: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      max-width: 900px;
+      text-align: center;
     }
     footer {
       margin-top: auto;
       padding: 20px 0;
       font-size: 0.9em;
-      color: #495057; /* Footer text matches body text */
+      color: #495057;
+    }
+    footer a {
+      color: #0061f2;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -81,25 +97,28 @@
     <a href="https://etherscan.io/address/0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🔗 View Contract</a>
   </div>
 
-  <!-- About LondrCoin Section -->
-  <h2>About LondrCoin</h2>
-  <p>
-    LondrCoin ($LONDR) is a community-driven ERC20 token designed to innovate and celebrate decentralized rewards in the service economy.
-    Born from the idea of empowering gig workers, service providers, and everyday entrepreneurs, LondrCoin represents a playful, meme-driven, yet serious commitment to building the future of micro-rewards.
-  </p>
+  <!-- About LondrCoin Section in Card Box -->
+  <div class="card">
+    <h2>About LondrCoin</h2>
+    <p>
+      LondrCoin ($LONDR) is a community-driven ERC20 token designed to innovate and celebrate decentralized rewards in the service economy.
+      Born from the idea of empowering gig workers, service providers, and everyday entrepreneurs, LondrCoin represents a playful, meme-driven, yet serious commitment to building the future of micro-rewards.
+    </p>
 
-  <p>
-    Through decentralized finance and blockchain technology, LondrCoin creates a fun and portable way to earn, trade, and reward participation in service-based micro-economies.
-    Our goal is simple: empower individuals, decentralize loyalty, and build community through technology and innovation.
-  </p>
+    <p>
+      Through decentralized finance and blockchain technology, LondrCoin creates a fun and portable way to earn, trade, and reward participation in service-based micro-economies.
+      Our goal is simple: empower individuals, decentralize loyalty, and build community through technology and innovation.
+    </p>
 
-  <p>
-    Join us as we wash away the old systems — and Londr in the new. 🚀
-  </p>
+    <p>
+      Join us as we wash away the old systems — and Londr in the new. 🚀
+    </p>
+  </div>
 
   <!-- Footer -->
   <footer>
-    © 2025 LondrCoin. All rights reserved.
+    © 2025 LondrCoin. All rights reserved. | 
+    <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">View on GitHub</a>
   </footer>
 </body>
 </html>
