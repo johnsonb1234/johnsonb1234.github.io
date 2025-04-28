@@ -5,6 +5,7 @@
   <title>LondrCoin ($LONDR)</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
   <style>
     html {
       scroll-behavior: smooth;
@@ -58,10 +59,16 @@
       text-decoration: none;
       border-radius: 8px;
       transition: background-color 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
     }
     .button:hover {
       background-color: #0056d2;
       transform: scale(1.05);
+    }
+    #wallet-address {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #1b2a4e;
     }
     .card {
       background: #ffffff;
@@ -126,35 +133,31 @@
   </style>
 </head>
 <body>
-  <!-- Main Logo linked to Litepaper -->
+  <!-- Main Logo -->
   <a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank">
     <img src="logo.png" alt="LondrCoin Logo" class="logo-main">
   </a>
 
-  <!-- Header Text Only -->
   <h1>Welcome to LondrCoin</h1>
 
   <p>Decentralized rewards for the service economy 🚀</p>
 
-  <!-- Buttons -->
+  <!-- Connect Wallet + Buy Coin Buttons -->
   <div>
-    <a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank" class="button">📜 View Litepaper</a>
-    <a href="https://etherscan.io/address/0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🔗 View Contract</a>
+    <button id="connectButton" class="button">🔌 Connect Wallet</button>
+    <div id="wallet-address"></div>
+    <a id="buyButton" href="https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button" style="display: none;">🛒 Buy LondrCoin</a>
   </div>
 
-  <!-- About LondrCoin Section -->
+  <!-- About Section -->
   <div class="card" id="about-card">
     <h2>About LondrCoin</h2>
     <p>
       LondrCoin ($LONDR) is a community-driven ERC20 token designed to innovate and celebrate decentralized rewards in the service economy.
-      Born from the idea of empowering gig workers, service providers, and everyday entrepreneurs, LondrCoin represents a playful, meme-driven, yet serious commitment to building the future of micro-rewards.
     </p>
-
     <p>
       Through decentralized finance and blockchain technology, LondrCoin creates a fun and portable way to earn, trade, and reward participation in service-based micro-economies.
-      Our goal is simple: empower individuals, decentralize loyalty, and build community through technology and innovation.
     </p>
-
     <p>
       Join us as we wash away the old systems — and Londr in the new. 🚀
     </p>
@@ -173,8 +176,27 @@
     </div>
   </footer>
 
-  <!-- Scroll Animation Script -->
+  <!-- Scripts -->
   <script>
+    async function connectWallet() {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+          const address = accounts[0];
+          const shortAddress = address.substring(0,6) + '...' + address.substring(address.length - 4);
+          document.getElementById('wallet-address').innerText = "Connected: " + shortAddress;
+          document.getElementById('buyButton').style.display = 'inline-block';
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        alert('MetaMask not detected. Please install it!');
+      }
+    }
+
+    document.getElementById('connectButton').addEventListener('click', connectWallet);
+
+    // Scroll animation
     window.addEventListener('scroll', function() {
       const card = document.getElementById('about-card');
       const cardTop = card.getBoundingClientRect().top;
