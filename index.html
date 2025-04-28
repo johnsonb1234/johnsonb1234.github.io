@@ -116,6 +116,25 @@
       width: 20px;
       height: 20px;
     }
+    .popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #28a745;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      font-size: 1em;
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: all 0.5s ease;
+      z-index: 1000;
+    }
+    .popup.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
     @media (max-width: 600px) {
       h1 {
         font-size: 2em;
@@ -175,6 +194,9 @@
     </div>
   </footer>
 
+  <!-- Popup -->
+  <div id="popup" class="popup">🎉 Wallet Connected Successfully!</div>
+
   <!-- Scripts -->
   <script>
     async function connectWallet() {
@@ -185,7 +207,6 @@
           const shortAddress = address.substring(0,6) + '...' + address.substring(address.length - 4);
           document.getElementById('wallet-address').innerText = "Connected: " + shortAddress;
 
-          // Show Disconnect + Buy buttons
           document.getElementById('wallet-buttons').innerHTML = `
             <button id="disconnectButton" class="button">🚪 Disconnect Wallet</button>
             <a id="buyButton" href="https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🛒 Buy LondrCoin</a>
@@ -207,6 +228,8 @@
             }
           }
 
+          showPopup();
+
         } catch (error) {
           console.error(error);
         }
@@ -216,7 +239,6 @@
     }
 
     function disconnectWallet() {
-      // Reset UI
       document.getElementById('wallet-address').innerText = "";
       document.getElementById('wallet-buttons').innerHTML = `
         <button id="connectButton" class="button">🔌 Connect Wallet</button>
@@ -224,9 +246,16 @@
       document.getElementById('connectButton').addEventListener('click', connectWallet);
     }
 
+    function showPopup() {
+      const popup = document.getElementById('popup');
+      popup.classList.add('show');
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, 3000);
+    }
+
     document.getElementById('connectButton').addEventListener('click', connectWallet);
 
-    // Scroll animation
     window.addEventListener('scroll', function() {
       const card = document.getElementById('about-card');
       const cardTop = card.getBoundingClientRect().top;
