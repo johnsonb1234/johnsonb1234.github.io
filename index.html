@@ -199,20 +199,84 @@
 
   <!-- Scripts -->
   <script>
-    async function connectWallet() {
-      if (typeof window.ethereum !== 'undefined') {
-        try {
-          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-          const address = accounts[0];
-          const shortAddress = address.substring(0,6) + '...' + address.substring(address.length - 4);
-          document.getElementById('wallet-address').innerText = "Connected: " + shortAddress;
+  async function connectWallet() {
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const address = accounts[0];
+        const shortAddress = address.substring(0,6) + '...' + address.substring(address.length - 4);
+        document.getElementById('wallet-address').innerText = "Connected: " + shortAddress;
 
+        const chainId = await ethereum.request({ method: 'eth_chainId' });
+        if (chainId === '0x1') {
+          // Ethereum Mainnet OK
+          showConnectedOptions();
+          showPopup();
+        } else {
+          // Wrong Network
           document.getElementById('wallet-buttons').innerHTML = `
-            <button id="disconnectButton" class="button">🚪 Disconnect Wallet</button>
-            <a id="buyButton" href="https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🛒 Buy LondrCoin</a>
+            <button id="switchButton" class="button">🌐 Switch to Ethereum</button>
           `;
+          document.getElementById('switchButton').addEventListener('click', switchToEthereum);
+        }
 
-          document.getElementById('disconnectButton').addEventListener('click', disconnectWallet);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      alert('MetaMask not detected. Please install it!');
+    }
+  }
+
+  async function switchToEthereum() {
+    try {
+      await ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x1' }],
+      });
+      showConnectedOptions();
+      showPopup();
+    } catch (switchError) {
+      console.error('Network switch error:', switchError);
+      alert('Please switch to Ethereum Mainnet manually.');
+    }
+  }
+
+  function showConnectedOptions() {
+    document.getElementById('wallet-buttons').innerHTML = `
+      <button id="disconnectButton" class="button">🚪 Disconnect Wallet</button>
+      <a id="buyButton" href="https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🛒 Buy LondrCoin</a>
+    `;
+    document.getElementById('disconnectButton').addEventListener('click', disconnectWallet);
+  }
+
+  function disconnectWallet() {
+    document.getElementById('wallet-address').innerText = "";
+    document.getElementById('wallet-buttons').innerHTML = `
+      <button id="connectButton" class="button">🔌 Connect Wallet</button>
+    `;
+    document.getElementById('connectButton').addEventListener('click', connectWallet);
+  }
+
+  function showPopup() {
+    const popup = document.getElementById('popup');
+    popup.classList.add('show');
+    setTimeout(() => {
+      popup.classList.remove('show');
+    }, 3000);
+  }
+
+  document.getElementById('connectButton').addEventListener('click', connectWallet);
+
+  window.addEventListener('scroll', function() {
+    const card = document.getElementById('about-card');
+    const cardTop = card.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+    if (cardTop < windowHeight - 100) {
+      card.classList.add('show');
+    }
+  });
+</script>
 
           // Check network
           const chainId = await ethereum.request({ method: 'eth_chainId' });
