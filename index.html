@@ -13,36 +13,49 @@
       margin: 0;
       padding: 20px;
       min-height: 100vh;
-      background-color: #ffffff; /* White background */
+      background-color: #ffffff;
       font-family: 'Arial', sans-serif;
-      color: #495057; /* Body text color */
+      color: #495057;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    img.logo {
+    .logo-main {
       max-width: 180px;
       border-radius: 20px;
       margin-bottom: 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
+    .header-with-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .header-with-icon img {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+    }
     h1, h2 {
-      color: #1b2a4e; /* Heading text color */
+      color: #1b2a4e;
+      margin: 0;
     }
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
+      font-size: 2.2em;
     }
     h2 {
       margin-top: 50px;
       font-size: 2em;
     }
     p {
-      font-size: 1.2em;
+      font-size: 1.1em;
       margin-bottom: 20px;
       max-width: 800px;
       line-height: 1.6;
+      padding: 0 10px;
     }
     .button {
       display: inline-block;
@@ -50,13 +63,13 @@
       padding: 12px 24px;
       font-size: 1em;
       color: white;
-      background-color: #0061f2; /* Londr blue button */
+      background-color: #0061f2;
       text-decoration: none;
       border-radius: 8px;
       transition: background-color 0.3s ease, transform 0.3s ease;
     }
     .button:hover {
-      background-color: #0056d2; /* Slightly darker blue */
+      background-color: #0056d2;
       transform: scale(1.05);
     }
     .card {
@@ -67,6 +80,13 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
       max-width: 900px;
       text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
     }
     footer {
       margin-top: auto;
@@ -81,15 +101,38 @@
     footer a:hover {
       text-decoration: underline;
     }
+    @media (max-width: 600px) {
+      .header-with-icon img {
+        width: 30px;
+        height: 30px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+      h2 {
+        font-size: 1.5em;
+      }
+      p {
+        font-size: 1em;
+      }
+      .card {
+        padding: 20px;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Logo linked to Litepaper -->
   <a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank">
-    <img src="logo.png" alt="LondrCoin Logo" class="logo">
+    <img src="logo.png" alt="LondrCoin Logo" class="logo-main">
   </a>
 
-  <h1>Welcome to LondrCoin</h1>
+  <!-- Header with small icon -->
+  <div class="header-with-icon">
+    <img src="logo.png" alt="LondrCoin Icon">
+    <h1>Welcome to LondrCoin</h1>
+  </div>
+
   <p>Decentralized rewards for the service economy 🚀</p>
 
   <div>
@@ -97,8 +140,8 @@
     <a href="https://etherscan.io/address/0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🔗 View Contract</a>
   </div>
 
-  <!-- About LondrCoin Section in Card Box -->
-  <div class="card">
+  <!-- About LondrCoin Section in Card -->
+  <div class="card" id="about-card">
     <h2>About LondrCoin</h2>
     <p>
       LondrCoin ($LONDR) is a community-driven ERC20 token designed to innovate and celebrate decentralized rewards in the service economy.
@@ -117,8 +160,20 @@
 
   <!-- Footer -->
   <footer>
-    © 2025 LondrCoin. All rights reserved. | 
+    © 2025 LondrCoin. All rights reserved. |
     <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">View on GitHub</a>
   </footer>
+
+  <!-- Simple scroll animation script -->
+  <script>
+    window.addEventListener('scroll', function() {
+      const card = document.getElementById('about-card');
+      const cardTop = card.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+      if (cardTop < windowHeight - 100) {
+        card.classList.add('show');
+      }
+    });
+  </script>
 </body>
 </html>
