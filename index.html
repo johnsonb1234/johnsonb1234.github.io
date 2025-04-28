@@ -14,6 +14,8 @@
       padding: 20px;
       min-height: 100vh;
       background-color: #ffffff;
+      background-image: radial-gradient(#d9e2ef 1px, transparent 1px);
+      background-size: 20px 20px;
       font-family: 'Arial', sans-serif;
       color: #495057;
       text-align: center;
@@ -27,24 +29,13 @@
       margin-bottom: 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
-    .header-with-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-    .header-with-icon img {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-    }
     h1, h2 {
       color: #1b2a4e;
       margin: 0;
     }
     h1 {
-      font-size: 2.2em;
+      font-size: 2.5em;
+      margin-bottom: 10px;
     }
     h2 {
       margin-top: 50px;
@@ -102,12 +93,8 @@
       text-decoration: underline;
     }
     @media (max-width: 600px) {
-      .header-with-icon img {
-        width: 30px;
-        height: 30px;
-      }
       h1 {
-        font-size: 1.8em;
+        font-size: 2em;
       }
       h2 {
         font-size: 1.5em;
@@ -127,11 +114,8 @@
     <img src="logo.png" alt="LondrCoin Logo" class="logo-main">
   </a>
 
-  <!-- Header with small icon -->
-  <div class="header-with-icon">
-    <img src="logo.png" alt="LondrCoin Icon">
-    <h1>Welcome to LondrCoin</h1>
-  </div>
+  <!-- Main Header (no small icon) -->
+  <h1>Welcome to LondrCoin</h1>
 
   <p>Decentralized rewards for the service economy 🚀</p>
 
@@ -164,7 +148,7 @@
     <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">View on GitHub</a>
   </footer>
 
-  <!-- Simple scroll animation script -->
+  <!-- Simple scroll animation for card -->
   <script>
     window.addEventListener('scroll', function() {
       const card = document.getElementById('about-card');
