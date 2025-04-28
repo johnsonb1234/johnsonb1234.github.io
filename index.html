@@ -142,12 +142,11 @@
 
   <p>Decentralized rewards for the service economy 🚀</p>
 
-  <!-- Connect Wallet + Buy Coin Buttons -->
-  <div>
+  <!-- Connect Wallet / Disconnect Wallet / Buy Coin Buttons -->
+  <div id="wallet-buttons">
     <button id="connectButton" class="button">🔌 Connect Wallet</button>
-    <div id="wallet-address"></div>
-    <a id="buyButton" href="https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button" style="display: none;">🛒 Buy LondrCoin</a>
   </div>
+  <div id="wallet-address"></div>
 
   <!-- About Section -->
   <div class="card" id="about-card">
@@ -185,13 +184,44 @@
           const address = accounts[0];
           const shortAddress = address.substring(0,6) + '...' + address.substring(address.length - 4);
           document.getElementById('wallet-address').innerText = "Connected: " + shortAddress;
-          document.getElementById('buyButton').style.display = 'inline-block';
+
+          // Show Disconnect + Buy buttons
+          document.getElementById('wallet-buttons').innerHTML = `
+            <button id="disconnectButton" class="button">🚪 Disconnect Wallet</button>
+            <a id="buyButton" href="https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🛒 Buy LondrCoin</a>
+          `;
+
+          document.getElementById('disconnectButton').addEventListener('click', disconnectWallet);
+
+          // Check network
+          const chainId = await ethereum.request({ method: 'eth_chainId' });
+          if (chainId !== '0x1') {
+            try {
+              await ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x1' }],
+              });
+            } catch (switchError) {
+              console.error('Network switch error:', switchError);
+              alert('Please switch to Ethereum Mainnet manually.');
+            }
+          }
+
         } catch (error) {
           console.error(error);
         }
       } else {
         alert('MetaMask not detected. Please install it!');
       }
+    }
+
+    function disconnectWallet() {
+      // Reset UI
+      document.getElementById('wallet-address').innerText = "";
+      document.getElementById('wallet-buttons').innerHTML = `
+        <button id="connectButton" class="button">🔌 Connect Wallet</button>
+      `;
+      document.getElementById('connectButton').addEventListener('click', connectWallet);
     }
 
     document.getElementById('connectButton').addEventListener('click', connectWallet);
