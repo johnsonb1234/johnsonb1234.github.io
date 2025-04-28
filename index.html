@@ -5,6 +5,9 @@
   <title>LondrCoin ($LONDR)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    html {
+      scroll-behavior: smooth; /* Smooth scrolling enabled */
+    }
     body {
       margin: 0;
       padding: 20px;
@@ -27,6 +30,10 @@
       font-size: 2.5em;
       margin-bottom: 10px;
     }
+    h2 {
+      margin-top: 50px;
+      font-size: 2em;
+    }
     p {
       font-size: 1.2em;
       margin-bottom: 20px;
@@ -42,10 +49,17 @@
       background-color: #007bff;
       text-decoration: none;
       border-radius: 8px;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
     .button:hover {
       background-color: #0056b3;
+      transform: scale(1.05); /* Grows slightly on hover */
+    }
+    footer {
+      margin-top: auto;
+      padding: 20px 0;
+      font-size: 0.9em;
+      color: #d1d1d1;
     }
   </style>
 </head>
@@ -64,7 +78,7 @@
   </div>
 
   <!-- About LondrCoin Section -->
-  <h2 style="margin-top: 50px;">About LondrCoin</h2>
+  <h2>About LondrCoin</h2>
   <p>
     LondrCoin ($LONDR) is a community-driven ERC20 token designed to innovate and celebrate decentralized rewards in the service economy.
     Born from the idea of empowering gig workers, service providers, and everyday entrepreneurs, LondrCoin represents a playful, meme-driven, yet serious commitment to building the future of micro-rewards.
@@ -78,5 +92,10 @@
   <p>
     Join us as we wash away the old systems — and Londr in the new. 🚀
   </p>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 LondrCoin. All rights reserved.
+  </footer>
 </body>
 </html>
