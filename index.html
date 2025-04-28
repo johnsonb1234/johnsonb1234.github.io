@@ -88,6 +88,7 @@
     footer a {
       color: #0061f2;
       text-decoration: none;
+      margin: 0 8px;
     }
     footer a:hover {
       text-decoration: underline;
@@ -109,22 +110,23 @@
   </style>
 </head>
 <body>
-  <!-- Logo linked to Litepaper -->
+  <!-- Main Logo linked to Litepaper -->
   <a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank">
     <img src="logo.png" alt="LondrCoin Logo" class="logo-main">
   </a>
 
-  <!-- Main Header (no small icon) -->
+  <!-- Header Text Only -->
   <h1>Welcome to LondrCoin</h1>
 
   <p>Decentralized rewards for the service economy 🚀</p>
 
+  <!-- Buttons -->
   <div>
     <a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank" class="button">📜 View Litepaper</a>
     <a href="https://etherscan.io/address/0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🔗 View Contract</a>
   </div>
 
-  <!-- About LondrCoin Section in Card -->
+  <!-- About LondrCoin Section (Card Box) -->
   <div class="card" id="about-card">
     <h2>About LondrCoin</h2>
     <p>
@@ -145,10 +147,11 @@
   <!-- Footer -->
   <footer>
     © 2025 LondrCoin. All rights reserved. |
-    <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">View on GitHub</a>
+    <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">GitHub</a> |
+    <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">LinkedIn</a>
   </footer>
 
-  <!-- Simple scroll animation for card -->
+  <!-- Scroll Animation Script -->
   <script>
     window.addEventListener('scroll', function() {
       const card = document.getElementById('about-card');
