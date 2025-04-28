@@ -84,14 +84,30 @@
       padding: 20px 0;
       font-size: 0.9em;
       color: #495057;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
     }
-    footer a {
+    .social-links {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .social-links a {
       color: #0061f2;
       text-decoration: none;
-      margin: 0 8px;
+      font-size: 1.2em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    footer a:hover {
+    .social-links a:hover {
       text-decoration: underline;
+    }
+    .social-links img {
+      width: 20px;
+      height: 20px;
     }
     @media (max-width: 600px) {
       h1 {
@@ -126,7 +142,7 @@
     <a href="https://etherscan.io/address/0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🔗 View Contract</a>
   </div>
 
-  <!-- About LondrCoin Section (Card Box) -->
+  <!-- About LondrCoin Section -->
   <div class="card" id="about-card">
     <h2>About LondrCoin</h2>
     <p>
@@ -146,9 +162,15 @@
 
   <!-- Footer -->
   <footer>
-    © 2025 LondrCoin. All rights reserved. |
-    <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">GitHub</a> |
-    <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">LinkedIn</a>
+    © 2025 LondrCoin. All rights reserved.
+    <div class="social-links">
+      <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub"> GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"> LinkedIn
+      </a>
+    </div>
   </footer>
 
   <!-- Scroll Animation Script -->
