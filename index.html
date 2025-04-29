@@ -112,12 +112,15 @@
 <script>
   let web3Modal, provider, signer;
 
-  const providerOptions = {
-    metamask: {
-      id: "injected",
-      name: "MetaMask",
-      type: "injected",
-      check: "isMetaMask"
+const providerOptions = {
+  walletconnect: {
+    package: window.WalletConnectProvider.default,
+    options: {
+      infuraId: "e64a3f2efcf04a2fa16913fe3629bc97"
+    }
+  }
+};
+
     },
     walletconnect: {
       package: window.WalletConnectProvider.default,
