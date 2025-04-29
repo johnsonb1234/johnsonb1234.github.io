@@ -104,34 +104,34 @@
     const disconnectButton = document.getElementById("disconnectButton");
     const walletAddress = document.getElementById("walletAddress");
 
-    let provider;
-    let signer;
+    let provider = null;
+    let signer = null;
 
     async function connectWallet() {
-      if (typeof window.ethereum !== "undefined") {
+      if (typeof window.ethereum !== 'undefined') {
         try {
-          await window.ethereum.request({ method: "eth_requestAccounts" });
           provider = new ethers.providers.Web3Provider(window.ethereum);
+          await provider.send("eth_requestAccounts", []);
           signer = provider.getSigner();
           const address = await signer.getAddress();
 
           walletAddress.innerText = "Connected: " + address;
           connectButton.style.display = "none";
           disconnectButton.style.display = "inline-block";
-        } catch (err) {
-          console.error("User rejected connection:", err);
+        } catch (error) {
+          console.error("Connection error:", error);
         }
       } else {
-        alert("MetaMask not detected. Please install it to use this feature.");
+        alert("MetaMask not found. Please install it to use this feature.");
       }
     }
 
     function disconnectWallet() {
+      provider = null;
+      signer = null;
       walletAddress.innerText = "";
       connectButton.style.display = "inline-block";
       disconnectButton.style.display = "none";
-      provider = null;
-      signer = null;
     }
 
     connectButton.addEventListener("click", connectWallet);
