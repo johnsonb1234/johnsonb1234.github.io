@@ -6,7 +6,7 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Load ethers.js, Web3Modal and WalletConnect -->
+  <!-- Load ethers.js, Web3Modal, WalletConnect -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
   <script src="https://unpkg.com/web3modal@1.9.8/dist/index.js"></script>
   <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
@@ -68,135 +68,130 @@
 </head>
 <body>
 
-  <!-- Logo -->
-  <a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank">
-    <img src="logo.png" alt="LondrCoin Logo" class="logo-main">
-  </a>
+<!-- Main Logo -->
+<a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank">
+  <img src="logo.png" alt="LondrCoin Logo" class="logo-main">
+</a>
 
-  <h1>Welcome to LondrCoin</h1>
-  <p>Decentralized rewards for the service economy 🚀</p>
+<h1>Welcome to LondrCoin</h1>
+<p>Decentralized rewards for the service economy 🚀</p>
 
-  <!-- Wallet Buttons -->
-  <div id="wallet-buttons">
-    <button id="connectWallet" class="button">🔌 Connect Wallet</button>
+<!-- Wallet Connect Section -->
+<div id="wallet-buttons">
+  <button id="connectWallet" class="button">🔌 Connect Wallet</button>
+</div>
+<div id="wallet-address"></div>
+
+<!-- About Section -->
+<div class="card" id="about-card">
+  <h2>About LondrCoin</h2>
+  <p>LondrCoin ($LONDR) is a community-driven ERC20 token designed to innovate and celebrate decentralized rewards in the service economy.</p>
+  <p>Through decentralized finance and blockchain technology, LondrCoin creates a fun and portable way to earn, trade, and reward participation in service-based micro-economies.</p>
+  <p>Join us as we wash away the old systems — and Londr in the new. 🚀</p>
+</div>
+
+<!-- Footer -->
+<footer>
+  © 2025 LondrCoin. All rights reserved.
+  <div class="social-links">
+    <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub"> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"> LinkedIn
+    </a>
   </div>
-  <div id="wallet-address"></div>
+</footer>
 
-  <!-- About -->
-  <div class="card" id="about-card">
-    <h2>About LondrCoin</h2>
-    <p>
-      LondrCoin ($LONDR) is a community-driven ERC20 token designed to innovate and celebrate decentralized rewards in the service economy.
-    </p>
-    <p>
-      Through decentralized finance and blockchain technology, LondrCoin creates a fun and portable way to earn, trade, and reward participation in service-based micro-economies.
-    </p>
-    <p>Join us as we wash away the old systems — and Londr in the new. 🚀</p>
-  </div>
+<!-- Popup -->
+<div id="popup" class="popup">🎉 Wallet Connected Successfully!</div>
+<!-- Scripts -->
+<script>
+  let web3Modal, provider, signer;
 
-  <!-- Footer -->
-  <footer>
-    © 2025 LondrCoin. All rights reserved.
-    <div class="social-links">
-      <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub"> GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"> LinkedIn
-      </a>
-    </div>
-  </footer>
-
-  <!-- Popup -->
-  <div id="popup" class="popup">🎉 Wallet Connected Successfully!</div>
-
-  <!-- Scripts -->
-  <script>
-    let web3Modal, provider, signer;
-
-    const providerOptions = {
-      walletconnect: {
-        package: window.WalletConnectProvider.default,
-        options: {
-          infuraId: "https://mainnet.infura.io/v3/INFURA_ID" // <-- Replace this later
-        }
+  const providerOptions = {
+    walletconnect: {
+      package: window.WalletConnectProvider.default,
+      options: {
+        infuraId: "e64a3f2efcf04a2fa16913fe3629bc97" // Your Infura ID
       }
-    };
+    }
+  };
 
-    web3Modal = new window.Web3Modal.default({
-      cacheProvider: false,
-      providerOptions
-    });
+  web3Modal = new window.Web3Modal.default({
+    cacheProvider: false,
+    providerOptions
+  });
 
-    async function connectWallet() {
+  async function connectWallet() {
+    try {
+      const instance = await web3Modal.connect();
+      provider = new ethers.providers.Web3Provider(instance);
+      signer = provider.getSigner();
+      const address = await signer.getAddress();
+      const shortAddress = address.substring(0,6) + "..." + address.substring(address.length - 4);
+      document.getElementById('wallet-address').innerText = "Connected: " + shortAddress;
+
+      showConnectedOptions();
+      showPopup();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  function showConnectedOptions() {
+    document.getElementById('wallet-buttons').innerHTML = `
+      <button id="disconnectWallet" class="button">🚪 Disconnect Wallet</button>
+      <button id="buyButton" class="button">🛒 Buy LondrCoin</button>
+    `;
+    document.getElementById('disconnectWallet').addEventListener('click', disconnectWallet);
+    document.getElementById('buyButton').addEventListener('click', buyAndAddToken);
+  }
+
+  function disconnectWallet() {
+    web3Modal.clearCachedProvider();
+    document.getElementById('wallet-address').innerText = "";
+    document.getElementById('wallet-buttons').innerHTML = `
+      <button id="connectWallet" class="button">🔌 Connect Wallet</button>
+    `;
+    document.getElementById('connectWallet').addEventListener('click', connectWallet);
+  }
+
+  function showPopup() {
+    const popup = document.getElementById('popup');
+    popup.classList.add('show');
+    setTimeout(() => {
+      popup.classList.remove('show');
+    }, 3000);
+  }
+
+  async function buyAndAddToken() {
+    window.open('https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e', '_blank');
+    if (provider) {
       try {
-        const instance = await web3Modal.connect();
-        provider = new ethers.providers.Web3Provider(instance);
-        signer = provider.getSigner();
-        const address = await signer.getAddress();
-        const shortAddress = address.substring(0,6) + "..." + address.substring(address.length - 4);
-        document.getElementById('wallet-address').innerText = "Connected: " + shortAddress;
-
-        showConnectedOptions();
-        showPopup();
+        await provider.send("wallet_watchAsset", [{
+          type: "ERC20",
+          options: {
+            address: "0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e",
+            symbol: "LONDR",
+            decimals: 18
+          }
+        }]);
       } catch (err) {
         console.error(err);
       }
     }
+  }
 
-    function showConnectedOptions() {
-      document.getElementById('wallet-buttons').innerHTML = `
-        <button id="disconnectWallet" class="button">🚪 Disconnect Wallet</button>
-        <button id="buyButton" class="button">🛒 Buy LondrCoin</button>
-      `;
-      document.getElementById('disconnectWallet').addEventListener('click', disconnectWallet);
-      document.getElementById('buyButton').addEventListener('click', buyAndAddToken);
+  document.getElementById('connectWallet').addEventListener('click', connectWallet);
+
+  window.addEventListener('scroll', function() {
+    const card = document.getElementById('about-card');
+    if (card.getBoundingClientRect().top < window.innerHeight - 100) {
+      card.classList.add('show');
     }
-
-    function disconnectWallet() {
-      web3Modal.clearCachedProvider();
-      document.getElementById('wallet-address').innerText = "";
-      document.getElementById('wallet-buttons').innerHTML = `
-        <button id="connectWallet" class="button">🔌 Connect Wallet</button>
-      `;
-      document.getElementById('connectWallet').addEventListener('click', connectWallet);
-    }
-
-    function showPopup() {
-      const popup = document.getElementById('popup');
-      popup.classList.add('show');
-      setTimeout(() => {
-        popup.classList.remove('show');
-      }, 3000);
-    }
-
-    async function buyAndAddToken() {
-      window.open('https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e', '_blank');
-      if (provider) {
-        try {
-          await provider.send("wallet_watchAsset", [{
-            type: "ERC20",
-            options: {
-              address: "0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e",
-              symbol: "LONDR",
-              decimals: 18
-            }
-          }]);
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    }
-
-    document.getElementById('connectWallet').addEventListener('click', connectWallet);
-
-    window.addEventListener('scroll', function() {
-      const card = document.getElementById('about-card');
-      if (card.getBoundingClientRect().top < window.innerHeight - 100) {
-        card.classList.add('show');
-      }
-    });
-  </script>
+  });
+</script>
 
 </body>
 </html>
