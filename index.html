@@ -68,6 +68,7 @@
 
 <footer>
   <div>© 2025 LondrCoin. All rights reserved.</div>
+  <div><a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank" style="color:#0061f2;text-decoration:underline;">📄 View Litepaper</a></div>
   <div class="social-links">
     <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">GitHub</a>
     <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">LinkedIn</a>
@@ -78,6 +79,12 @@
   let web3Modal, provider, signer;
 
   const providerOptions = {
+    injected: {
+      display: {
+        name: "MetaMask",
+        description: "Connect using your browser wallet"
+      }
+    },
     coinbasewallet: {
       package: window.CoinbaseWalletSDK,
       options: {
@@ -95,7 +102,8 @@
 
   web3Modal = new window.Web3Modal.default({
     cacheProvider: false,
-    providerOptions
+    providerOptions,
+    disableInjectedProvider: false
   });
 
   async function connectWallet() {
@@ -123,6 +131,8 @@
 
   function disconnectWallet() {
     web3Modal.clearCachedProvider();
+    provider = null;
+    signer = null;
     document.getElementById('wallet-address').innerText = "";
     document.getElementById('wallet-buttons').innerHTML = `
       <button id="connectWallet" class="button">🔌 Connect Wallet</button>
