@@ -1,65 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>LondrCoin ($LONDR)</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
     body {
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
+      margin: 0; padding: 20px; min-height: 100vh;
+      font-family: Arial, sans-serif;
       background-color: #ffffff;
       background-image: radial-gradient(#d9e2ef 1px, transparent 1px);
       background-size: 20px 20px;
-      font-family: 'Arial', sans-serif;
-      color: #495057;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      text-align: center; color: #495057;
+      display: flex; flex-direction: column; align-items: center;
     }
     .logo-main {
-      max-width: 180px;
-      border-radius: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 180px; margin: 0 auto 20px;
+      border-radius: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
-    h1, h2 {
-      color: #1b2a4e;
-      margin: 0;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-    h2 {
-      margin-top: 50px;
-      font-size: 2em;
-    }
+    h1, h2 { color: #1b2a4e; margin: 0; }
+    h1 { font-size: 2.5em; margin-bottom: 10px; }
+    h2 { margin-top: 50px; font-size: 2em; }
     p {
       font-size: 1.1em;
-      margin-bottom: 20px;
+      margin: 0 auto 20px;
       max-width: 800px;
       line-height: 1.6;
       padding: 0 10px;
     }
     .button {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 24px;
-      font-size: 1em;
-      color: white;
-      background-color: #0061f2;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      cursor: pointer;
+      display: inline-block; margin: 10px; padding: 12px 24px;
+      font-size: 1em; color: white; background-color: #0061f2;
+      text-decoration: none; border-radius: 8px;
+      transition: 0.3s; cursor: pointer;
     }
     .button:hover {
       background-color: #0056d2;
@@ -78,206 +54,114 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
       max-width: 900px;
       text-align: center;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s ease;
-    }
-    .card.show {
-      opacity: 1;
-      transform: translateY(0);
     }
     footer {
-      margin-top: auto;
-      padding: 20px 0;
-      font-size: 0.9em;
-      color: #495057;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
+      margin-top: 40px; padding: 20px 0;
+      font-size: 0.9em; color: #495057;
     }
     .social-links {
-      display: flex;
-      align-items: center;
-      gap: 15px;
+      display: flex; justify-content: center;
+      gap: 15px; margin-top: 10px;
     }
     .social-links a {
       color: #0061f2;
       text-decoration: none;
       font-size: 1.2em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .social-links a:hover {
-      text-decoration: underline;
+      display: flex; align-items: center; gap: 6px;
     }
     .social-links img {
-      width: 20px;
-      height: 20px;
-    }
-    .popup {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #28a745;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      font-size: 1em;
-      opacity: 0;
-      transform: translateY(-30px);
-      transition: all 0.5s ease;
-      z-index: 1000;
-    }
-    .popup.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2em;
-      }
-      h2 {
-        font-size: 1.5em;
-      }
-      p {
-        font-size: 1em;
-      }
-      .card {
-        padding: 20px;
-      }
+      width: 20px; height: 20px;
     }
   </style>
 </head>
 <body>
-  <!-- Main Logo -->
-  <a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank">
-    <img src="logo.png" alt="LondrCoin Logo" class="logo-main">
-  </a>
 
-  <h1>Welcome to LondrCoin</h1>
+<img src="logo.png" alt="LondrCoin Logo" class="logo-main" />
 
-  <p>Decentralized rewards for the service economy 🚀</p>
+<h1>Welcome to LondrCoin</h1>
+<p>Decentralized rewards for the service economy 🚀</p>
 
-  <!-- Connect / Wallet Options -->
-  <div id="wallet-buttons">
-    <button id="connectButton" class="button">🔌 Connect Wallet</button>
-  </div>
-  <div id="wallet-address"></div>
+<!-- Connect Button -->
+<div id="wallet-buttons">
+  <button id="connectButton" class="button">🔌 Connect Wallet</button>
+</div>
+<div id="wallet-address"></div>
 
-  <!-- About Section -->
-  <div class="card" id="about-card">
-    <h2>About LondrCoin</h2>
-    <p>
-      LondrCoin ($LONDR) is a community-driven ERC20 token designed to innovate and celebrate decentralized rewards in the service economy.
-    </p>
-    <p>
-      Through decentralized finance and blockchain technology, LondrCoin creates a fun and portable way to earn, trade, and reward participation in service-based micro-economies.
-    </p>
-    <p>
-      Join us as we wash away the old systems — and Londr in the new. 🚀
-    </p>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    © 2025 LondrCoin. All rights reserved.
-    <div class="social-links">
-  <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" width="20" height="20"> GitHub
-  </a>
-  <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="20" height="20"> LinkedIn
-  </a>
-  <a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="Litepaper" width="20" height="20"> Litepaper
-  </a>
+<!-- About Section -->
+<div class="card" id="about-card">
+  <h2>About LondrCoin</h2>
+  <p>
+    LondrCoin ($LONDR) is a community-driven ERC20 token designed to innovate and celebrate decentralized rewards in the service economy.
+  </p>
+  <p>
+    Through decentralized finance and blockchain technology, LondrCoin creates a fun and portable way to earn, trade, and reward participation in service-based micro-economies.
+  </p>
+  <p>
+    Join us as we wash away the old systems — and Londr in the new. 🚀
+  </p>
 </div>
 
-  </footer>
+<!-- Footer -->
+<footer>
+  <div>© 2025 LondrCoin. All rights reserved.</div>
+  <div class="social-links">
+    <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub"> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"> LinkedIn
+    </a>
+    <a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="Litepaper"> Litepaper
+    </a>
+  </div>
+</footer>
 
-  <!-- Popup -->
-  <div id="popup" class="popup">🎉 Wallet Connected Successfully!</div>
-
-  <!-- Scripts -->
-  <script>
-    async function connectWallet() {
-      if (typeof window.ethereum !== 'undefined') {
-        try {
-          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-          const address = accounts[0];
-          const shortAddress = address.substring(0,6) + '...' + address.substring(address.length - 4);
-          document.getElementById('wallet-address').innerText = "Connected: " + shortAddress;
-
-          const chainId = await ethereum.request({ method: 'eth_chainId' });
-          if (chainId === '0x1') {
-            showConnectedOptions();
-            showPopup();
-          } else {
-            document.getElementById('wallet-buttons').innerHTML = `
-              <button id="switchButton" class="button">🌐 Switch to Ethereum</button>
-            `;
-            document.getElementById('switchButton').addEventListener('click', switchToEthereum);
-          }
-
-        } catch (error) {
-          console.error(error);
-        }
-      } else {
-        alert('MetaMask not detected. Please install it!');
-      }
-    }
-
-    async function switchToEthereum() {
+<!-- Wallet Logic -->
+<script>
+  async function connectWallet() {
+    if (typeof window.ethereum !== 'undefined') {
       try {
-        await ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x1' }],
-        });
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const address = accounts[0];
+        const shortAddress = address.slice(0,6) + '...' + address.slice(-4);
+        document.getElementById('wallet-address').innerText = 'Connected: ' + shortAddress;
+
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        if (chainId !== '0x1') {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x1' }]
+          });
+        }
+
         showConnectedOptions();
-        showPopup();
-      } catch (switchError) {
-        console.error('Network switch error:', switchError);
-        alert('Please switch to Ethereum Mainnet manually.');
+      } catch (err) {
+        console.error(err);
       }
+    } else {
+      alert('MetaMask not detected. Please install it!');
     }
+  }
 
-    function showConnectedOptions() {
-      document.getElementById('wallet-buttons').innerHTML = `
-        <button id="disconnectButton" class="button">🚪 Disconnect Wallet</button>
-        <a id="buyButton" href="https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🛒 Buy LondrCoin</a>
-      `;
-      document.getElementById('disconnectButton').addEventListener('click', disconnectWallet);
-    }
+  function showConnectedOptions() {
+    document.getElementById('wallet-buttons').innerHTML = `
+      <button id="disconnectButton" class="button">🚪 Disconnect Wallet</button>
+      <a href="https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🛒 Buy LondrCoin</a>
+    `;
+    document.getElementById('disconnectButton').addEventListener('click', disconnectWallet);
+  }
 
-    function disconnectWallet() {
-      document.getElementById('wallet-address').innerText = "";
-      document.getElementById('wallet-buttons').innerHTML = `
-        <button id="connectButton" class="button">🔌 Connect Wallet</button>
-      `;
-      document.getElementById('connectButton').addEventListener('click', connectWallet);
-    }
-
-    function showPopup() {
-      const popup = document.getElementById('popup');
-      popup.classList.add('show');
-      setTimeout(() => {
-        popup.classList.remove('show');
-      }, 3000);
-    }
-
+  function disconnectWallet() {
+    document.getElementById('wallet-address').innerText = "";
+    document.getElementById('wallet-buttons').innerHTML = `
+      <button id="connectButton" class="button">🔌 Connect Wallet</button>
+    `;
     document.getElementById('connectButton').addEventListener('click', connectWallet);
+  }
 
-    window.addEventListener('scroll', function() {
-      const card = document.getElementById('about-card');
-      const cardTop = card.getBoundingClientRect().top;
-      const windowHeight = window.innerHeight;
-      if (cardTop < windowHeight - 100) {
-        card.classList.add('show');
-      }
-    });
-  </script>
+  document.getElementById('connectButton').addEventListener('click', connectWallet);
+</script>
+
 </body>
 </html>
