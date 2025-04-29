@@ -6,7 +6,7 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Load ethers.js, Web3Modal, WalletConnect -->
+  <!-- Load Web3Modal, WalletConnect, and ethers.js -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
   <script src="https://unpkg.com/web3modal@1.9.8/dist/index.js"></script>
   <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
@@ -22,18 +22,18 @@
       color: #495057; text-align: center;
       display: flex; flex-direction: column; align-items: center;
     }
-    .logo-main { max-width: 180px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);}
-    h1, h2 { color: #1b2a4e; margin: 0;}
-    h1 { font-size: 2.5em; margin-bottom: 10px;}
-    h2 { margin-top: 50px; font-size: 2em;}
-    p { font-size: 1.1em; margin-bottom: 20px; max-width: 800px; line-height: 1.6; padding: 0 10px;}
+    .logo-main { max-width: 180px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    h1, h2 { color: #1b2a4e; margin: 0; }
+    h1 { font-size: 2.5em; margin-bottom: 10px; }
+    h2 { margin-top: 50px; font-size: 2em; }
+    p { font-size: 1.1em; margin-bottom: 20px; max-width: 800px; line-height: 1.6; padding: 0 10px; }
     .button {
       display: inline-block; margin: 10px; padding: 12px 24px;
       font-size: 1em; color: white; background-color: #0061f2;
       text-decoration: none; border-radius: 8px; transition: 0.3s; cursor: pointer;
     }
-    .button:hover { background-color: #0056d2; transform: scale(1.05);}
-    #wallet-address { margin-top: 10px; font-size: 0.9em; color: #1b2a4e;}
+    .button:hover { background-color: #0056d2; transform: scale(1.05); }
+    #wallet-address { margin-top: 10px; font-size: 0.9em; color: #1b2a4e; }
     .card {
       background: #ffffff; padding: 30px; margin-top: 30px;
       border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
@@ -41,14 +41,17 @@
       opacity: 0; transform: translateY(30px);
       transition: all 1s ease;
     }
-    .card.show { opacity: 1; transform: translateY(0);}
-    footer { margin-top: auto; padding: 20px 0; font-size: 0.9em; color: #495057; display: flex; flex-direction: column; align-items: center; gap: 5px;}
-    .social-links { display: flex; align-items: center; gap: 15px;}
+    .card.show { opacity: 1; transform: translateY(0); }
+    footer {
+      margin-top: auto; padding: 20px 0; font-size: 0.9em; color: #495057;
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+    }
+    .social-links { display: flex; align-items: center; gap: 15px; }
     .social-links a {
       color: #0061f2; text-decoration: none; font-size: 1.2em;
       display: flex; align-items: center; gap: 6px;
     }
-    .social-links img { width: 20px; height: 20px;}
+    .social-links img { width: 20px; height: 20px; }
     .popup {
       position: fixed; top: 20px; right: 20px;
       background-color: #28a745; color: white;
@@ -57,7 +60,7 @@
       font-size: 1em; opacity: 0;
       transform: translateY(-30px); transition: all 0.5s ease; z-index: 1000;
     }
-    .popup.show { opacity: 1; transform: translateY(0);}
+    .popup.show { opacity: 1; transform: translateY(0); }
     @media (max-width: 600px) {
       h1 { font-size: 2em; }
       h2 { font-size: 1.5em; }
@@ -105,15 +108,21 @@
 
 <!-- Popup -->
 <div id="popup" class="popup">🎉 Wallet Connected Successfully!</div>
-<!-- Scripts -->
+
 <script>
   let web3Modal, provider, signer;
 
   const providerOptions = {
+    metamask: {
+      id: "injected",
+      name: "MetaMask",
+      type: "injected",
+      check: "isMetaMask"
+    },
     walletconnect: {
       package: window.WalletConnectProvider.default,
       options: {
-        infuraId: "e64a3f2efcf04a2fa16913fe3629bc97" // Your Infura ID
+        infuraId: "e64a3f2efcf04a2fa16913fe3629bc97"
       }
     }
   };
@@ -131,7 +140,6 @@
       const address = await signer.getAddress();
       const shortAddress = address.substring(0,6) + "..." + address.substring(address.length - 4);
       document.getElementById('wallet-address').innerText = "Connected: " + shortAddress;
-
       showConnectedOptions();
       showPopup();
     } catch (err) {
@@ -167,16 +175,19 @@
 
   async function buyAndAddToken() {
     window.open('https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e', '_blank');
-    if (provider) {
+    if (window.ethereum && window.ethereum.request) {
       try {
-        await provider.send("wallet_watchAsset", [{
-          type: "ERC20",
-          options: {
-            address: "0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e",
-            symbol: "LONDR",
-            decimals: 18
+        await window.ethereum.request({
+          method: 'wallet_watchAsset',
+          params: {
+            type: 'ERC20',
+            options: {
+              address: '0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e',
+              symbol: 'LONDR',
+              decimals: 18
+            }
           }
-        }]);
+        });
       } catch (err) {
         console.error(err);
       }
