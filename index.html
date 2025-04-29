@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LondrCoin ($LONDR)</title>
   <meta name="description" content="LondrCoin ($LONDR) is a meme-inspired ERC20 token celebrating decentralized laundry innovation.">
+
+  <!-- Font Awesome for Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-3wA2QH5G2LbhP6AFq47HdZz5DZoAEzGV4HjcuoY/MGAPrByZufvov3IQqIKnvUjNDgiY4BvqqzMZQ9ZQFzB0Ww=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -38,8 +48,14 @@
       background-color: #007bff;
       color: white;
       border-radius: 8px;
-      width: 250px;
-      display: inline-block;
+      width: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .wallet-links i {
+      font-size: 18px;
     }
     .about {
       max-width: 700px;
@@ -60,8 +76,13 @@
       font-size: 14px;
       color: #777;
     }
-    a {
+    footer a {
+      margin: 0 10px;
       color: #007bff;
+      text-decoration: none;
+    }
+    footer i {
+      margin-right: 6px;
     }
   </style>
 </head>
@@ -72,15 +93,23 @@
     <p>A meme-inspired ERC20 token for the decentralized future of laundry.</p>
   </header>
 
-  <!-- ✅ WALLET PROVIDER LINKS -->
+  <!-- ✅ WALLET PROVIDER LINKS WITH ICONS -->
   <div class="wallet-links">
-    <a href="https://metamask.io/download/" target="_blank">🔗 Get MetaMask</a>
-    <a href="https://wallet.coinbase.com/" target="_blank">🔗 Get Coinbase Wallet</a>
-    <a href="https://trustwallet.com/" target="_blank">🔗 Get Trust Wallet</a>
-    <a href="https://rainbow.me/" target="_blank">🔗 Get Rainbow Wallet</a>
+    <a href="https://metamask.io/download/" target="_blank">
+      <i class="fab fa-ethereum"></i> 🦊 Get MetaMask
+    </a>
+    <a href="https://wallet.coinbase.com/" target="_blank">
+      <i class="fas fa-wallet"></i> 🪙 Get Coinbase Wallet
+    </a>
+    <a href="https://trustwallet.com/" target="_blank">
+      <i class="fas fa-shield-alt"></i> 🛡️ Get Trust Wallet
+    </a>
+    <a href="https://rainbow.me/" target="_blank">
+      <i class="fas fa-rainbow"></i> 🌈 Get Rainbow Wallet
+    </a>
   </div>
 
-  <!-- ✅ ABOUT -->
+  <!-- ✅ ABOUT SECTION -->
   <div class="about">
     <h2>About LondrCoin</h2>
     <p>
@@ -94,13 +123,19 @@
     </p>
   </div>
 
-  <!-- ✅ FOOTER -->
+  <!-- ✅ FOOTER WITH ICONS -->
   <footer>
-    <p>&copy; LondrCoin 2025 | 
-      <a href="https://github.com/johnsonb1234/londrcoin" target="_blank">GitHub</a> | 
-      <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">LinkedIn</a> | 
-      <a href="litepaper.pdf" target="_blank">Litepaper</a>
-    </p>
+    <a href="https://github.com/johnsonb1234/londrcoin" target="_blank">
+      <i class="fab fa-github"></i>GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">
+      <i class="fab fa-linkedin"></i>LinkedIn
+    </a>
+    <a href="litepaper.pdf" target="_blank">
+      <i class="fas fa-file-alt"></i>Litepaper
+    </a>
+    <p>&copy; LondrCoin 2025</p>
   </footer>
 </body>
 </html>
+
