@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LondrCoin ($LONDR)</title>
   <meta name="description" content="LondrCoin ($LONDR) is a meme-inspired ERC20 token celebrating innovation in laundry services, the gig economy, and decentralized rewards.">
@@ -94,37 +94,42 @@
   </footer>
 
   <script>
-    const connectButton = document.getElementById('connectButton');
-    const disconnectButton = document.getElementById('disconnectButton');
-    const walletAddress = document.getElementById('walletAddress');
-    let provider;
+    const connectButton = document.getElementById("connectButton");
+    const disconnectButton = document.getElementById("disconnectButton");
+    const walletAddress = document.getElementById("walletAddress");
+
+    let provider = null;
+    let signer = null;
 
     async function connectWallet() {
       if (window.ethereum) {
         try {
-          provider = new ethers.providers.Web3Provider(window.ethereum);
-          const accounts = await provider.send("eth_requestAccounts", []);
-          const address = accounts[0];
+          provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+          await provider.send("eth_requestAccounts", []);
+          signer = provider.getSigner();
+          const address = await signer.getAddress();
           walletAddress.innerText = "Connected: " + address;
           connectButton.style.display = "none";
           disconnectButton.style.display = "inline-block";
         } catch (error) {
-          console.error("Connection failed", error);
+          console.error("Error connecting wallet:", error);
+          alert("Wallet connection failed. Check browser wallet and try again.");
         }
       } else {
-        alert("MetaMask not detected. Please install it.");
+        alert("No Ethereum wallet detected. Please install MetaMask.");
       }
     }
 
     function disconnectWallet() {
+      signer = null;
+      provider = null;
       walletAddress.innerText = "";
       connectButton.style.display = "inline-block";
       disconnectButton.style.display = "none";
-      provider = null;
     }
 
-    connectButton.addEventListener('click', connectWallet);
-    disconnectButton.addEventListener('click', disconnectWallet);
+    connectButton.addEventListener("click", connectWallet);
+    disconnectButton.addEventListener("click", disconnectWallet);
   </script>
 </body>
 </html>
