@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LondrCoin ($LONDR)</title>
   <meta name="description" content="LondrCoin ($LONDR) is a meme-inspired ERC20 token celebrating decentralized laundry innovation.">
-
-  <!-- Web3Modal v3 and Ethers -->
-  <script src="https://unpkg.com/@walletconnect/web3modal@3.0.0/dist/browser.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -82,7 +78,6 @@
     <p id="walletAddress"></p>
   </div>
 
-  <!-- ✅ ABOUT SECTION -->
   <div class="about">
     <h2>About LondrCoin</h2>
     <p>
@@ -96,7 +91,6 @@
     </p>
   </div>
 
-  <!-- ✅ FOOTER SECTION -->
   <footer>
     <p>&copy; LondrCoin 2025 | 
       <a href="https://github.com/johnsonb1234/londrcoin" target="_blank">GitHub</a> | 
@@ -105,60 +99,43 @@
     </p>
   </footer>
 
-  <!-- ✅ SCRIPT -->
   <script>
-    const { EthereumProvider, Web3Modal } = window.Web3Modal;
-    const { ethers } = window.ethers;
-
-    let provider;
-    let web3Modal;
-    let signer;
-
     const connectButton = document.getElementById("connectButton");
     const disconnectButton = document.getElementById("disconnectButton");
     const walletAddress = document.getElementById("walletAddress");
 
-    async function init() {
-      web3Modal = new Web3Modal({
-        projectId: "demo", // Replace with your real WalletConnect projectId if needed
-        themeMode: "light",
-        walletConnectVersion: 2,
-        chains: [{ id: 1, name: "Ethereum", rpcUrl: "https://mainnet.infura.io/v3" }],
-      });
-    }
+    let provider;
+    let signer;
 
     async function connectWallet() {
-      try {
-        const instance = await web3Modal.connect();
-        provider = new ethers.providers.Web3Provider(instance);
-        signer = provider.getSigner();
-        const address = await signer.getAddress();
+      if (typeof window.ethereum !== "undefined") {
+        try {
+          await window.ethereum.request({ method: "eth_requestAccounts" });
+          provider = new ethers.providers.Web3Provider(window.ethereum);
+          signer = provider.getSigner();
+          const address = await signer.getAddress();
 
-        walletAddress.innerText = "Connected: " + address;
-        connectButton.style.display = "none";
-        disconnectButton.style.display = "inline-block";
-
-        instance.on("disconnect", disconnectWallet);
-      } catch (err) {
-        console.error("Connection failed:", err);
-        alert("Failed to connect wallet.");
+          walletAddress.innerText = "Connected: " + address;
+          connectButton.style.display = "none";
+          disconnectButton.style.display = "inline-block";
+        } catch (err) {
+          console.error("User rejected connection:", err);
+        }
+      } else {
+        alert("MetaMask not detected. Please install it to use this feature.");
       }
     }
 
-    async function disconnectWallet() {
-      if (web3Modal && web3Modal.clearCachedProvider) {
-        await web3Modal.clearCachedProvider();
-      }
-      provider = null;
-      signer = null;
+    function disconnectWallet() {
       walletAddress.innerText = "";
       connectButton.style.display = "inline-block";
       disconnectButton.style.display = "none";
+      provider = null;
+      signer = null;
     }
 
     connectButton.addEventListener("click", connectWallet);
     disconnectButton.addEventListener("click", disconnectWallet);
-    window.addEventListener("load", init);
   </script>
 </body>
 </html>
