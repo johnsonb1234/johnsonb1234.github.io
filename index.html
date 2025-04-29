@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LondrCoin ($LONDR)</title>
   <meta name="description" content="LondrCoin ($LONDR) is a meme-inspired ERC20 token celebrating decentralized laundry innovation.">
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -25,20 +24,22 @@
       font-size: 2.5em;
       margin-bottom: 10px;
     }
-    button {
-      padding: 12px 24px;
+    .wallet-links {
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .wallet-links a {
+      text-decoration: none;
       font-size: 16px;
-      margin: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
+      padding: 12px 24px;
       background-color: #007bff;
       color: white;
-    }
-    #walletAddress {
-      font-weight: bold;
-      margin-top: 10px;
-      color: #333;
+      border-radius: 8px;
+      width: 250px;
+      display: inline-block;
     }
     .about {
       max-width: 700px;
@@ -61,7 +62,6 @@
     }
     a {
       color: #007bff;
-      text-decoration: none;
     }
   </style>
 </head>
@@ -72,12 +72,15 @@
     <p>A meme-inspired ERC20 token for the decentralized future of laundry.</p>
   </header>
 
-  <div>
-    <button id="connectButton">Connect Wallet</button>
-    <button id="disconnectButton" style="display: none;">Disconnect Wallet</button>
-    <p id="walletAddress"></p>
+  <!-- ✅ WALLET PROVIDER LINKS -->
+  <div class="wallet-links">
+    <a href="https://metamask.io/download/" target="_blank">🔗 Get MetaMask</a>
+    <a href="https://wallet.coinbase.com/" target="_blank">🔗 Get Coinbase Wallet</a>
+    <a href="https://trustwallet.com/" target="_blank">🔗 Get Trust Wallet</a>
+    <a href="https://rainbow.me/" target="_blank">🔗 Get Rainbow Wallet</a>
   </div>
 
+  <!-- ✅ ABOUT -->
   <div class="about">
     <h2>About LondrCoin</h2>
     <p>
@@ -91,6 +94,7 @@
     </p>
   </div>
 
+  <!-- ✅ FOOTER -->
   <footer>
     <p>&copy; LondrCoin 2025 | 
       <a href="https://github.com/johnsonb1234/londrcoin" target="_blank">GitHub</a> | 
@@ -98,44 +102,5 @@
       <a href="litepaper.pdf" target="_blank">Litepaper</a>
     </p>
   </footer>
-
-  <script>
-    const connectButton = document.getElementById("connectButton");
-    const disconnectButton = document.getElementById("disconnectButton");
-    const walletAddress = document.getElementById("walletAddress");
-
-    let provider = null;
-    let signer = null;
-
-    async function connectWallet() {
-      if (typeof window.ethereum !== 'undefined') {
-        try {
-          provider = new ethers.providers.Web3Provider(window.ethereum);
-          await provider.send("eth_requestAccounts", []);
-          signer = provider.getSigner();
-          const address = await signer.getAddress();
-
-          walletAddress.innerText = "Connected: " + address;
-          connectButton.style.display = "none";
-          disconnectButton.style.display = "inline-block";
-        } catch (error) {
-          console.error("Connection error:", error);
-        }
-      } else {
-        alert("MetaMask not found. Please install it to use this feature.");
-      }
-    }
-
-    function disconnectWallet() {
-      provider = null;
-      signer = null;
-      walletAddress.innerText = "";
-      connectButton.style.display = "inline-block";
-      disconnectButton.style.display = "none";
-    }
-
-    connectButton.addEventListener("click", connectWallet);
-    disconnectButton.addEventListener("click", disconnectWallet);
-  </script>
 </body>
 </html>
