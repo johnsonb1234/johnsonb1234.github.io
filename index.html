@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LondrCoin ($LONDR)</title>
-  <meta name="description" content="LondrCoin ($LONDR) is a meme-inspired ERC20 token celebrating innovation in laundry services, the gig economy, and decentralized rewards.">
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  <meta name="description" content="LondrCoin ($LONDR) is a meme-inspired ERC20 token celebrating decentralized laundry innovation.">
+
+  <!-- Web3Modal v3 and Ethers -->
+  <script src="https://unpkg.com/@walletconnect/web3modal@3.0.0/dist/browser.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -25,9 +29,6 @@
       font-size: 2.5em;
       margin-bottom: 10px;
     }
-    .wallet-buttons {
-      margin-top: 20px;
-    }
     button {
       padding: 12px 24px;
       font-size: 16px;
@@ -38,23 +39,26 @@
       background-color: #007bff;
       color: white;
     }
-    button:disabled {
-      background-color: #ccc;
-    }
     #walletAddress {
-      margin-top: 10px;
       font-weight: bold;
+      margin-top: 10px;
       color: #333;
     }
     .about {
       max-width: 700px;
-      margin: 40px auto;
+      margin: 50px auto;
       padding: 0 20px;
       font-size: 18px;
       color: #444;
+      text-align: left;
+    }
+    .about h2 {
+      text-align: center;
+      font-size: 24px;
+      color: #222;
     }
     footer {
-      margin-top: 50px;
+      margin-top: 60px;
       padding: 20px;
       font-size: 14px;
       color: #777;
@@ -72,19 +76,27 @@
     <p>A meme-inspired ERC20 token for the decentralized future of laundry.</p>
   </header>
 
-  <div class="wallet-buttons">
+  <div>
     <button id="connectButton">Connect Wallet</button>
     <button id="disconnectButton" style="display: none;">Disconnect Wallet</button>
     <p id="walletAddress"></p>
   </div>
 
+  <!-- ✅ ABOUT SECTION -->
   <div class="about">
     <h2>About LondrCoin</h2>
     <p>
-      LondrCoin ($LONDR) is more than just a token—it's a clean revolution. Built on the Ethereum blockchain, it's designed to support innovation in decentralized gig work, especially in laundry and home services. Our mission is to reward hard work, create opportunity, and bring transparency to modern decentralized service economies.
+      LondrCoin ($LONDR) is more than just a meme token — it's a movement toward decentralized empowerment.
+      Built on the Ethereum blockchain, LondrCoin fuels innovation in gig work and on-demand services, especially
+      in the laundry sector. By rewarding users, workers, and early adopters, we aim to create a circular economy
+      that is clean, fast, and fair.
+    </p>
+    <p>
+      Join us as we fold the old economy into a fresh, decentralized future — one wash at a time.
     </p>
   </div>
 
+  <!-- ✅ FOOTER SECTION -->
   <footer>
     <p>&copy; LondrCoin 2025 | 
       <a href="https://github.com/johnsonb1234/londrcoin" target="_blank">GitHub</a> | 
@@ -93,36 +105,52 @@
     </p>
   </footer>
 
+  <!-- ✅ SCRIPT -->
   <script>
+    const { EthereumProvider, Web3Modal } = window.Web3Modal;
+    const { ethers } = window.ethers;
+
+    let provider;
+    let web3Modal;
+    let signer;
+
     const connectButton = document.getElementById("connectButton");
     const disconnectButton = document.getElementById("disconnectButton");
     const walletAddress = document.getElementById("walletAddress");
 
-    let provider = null;
-    let signer = null;
+    async function init() {
+      web3Modal = new Web3Modal({
+        projectId: "demo", // Replace with your real WalletConnect projectId if needed
+        themeMode: "light",
+        walletConnectVersion: 2,
+        chains: [{ id: 1, name: "Ethereum", rpcUrl: "https://mainnet.infura.io/v3" }],
+      });
+    }
 
     async function connectWallet() {
-      if (window.ethereum) {
-        try {
-          provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-          await provider.send("eth_requestAccounts", []);
-          signer = provider.getSigner();
-          const address = await signer.getAddress();
-          walletAddress.innerText = "Connected: " + address;
-          connectButton.style.display = "none";
-          disconnectButton.style.display = "inline-block";
-        } catch (error) {
-          console.error("Error connecting wallet:", error);
-          alert("Wallet connection failed. Check browser wallet and try again.");
-        }
-      } else {
-        alert("No Ethereum wallet detected. Please install MetaMask.");
+      try {
+        const instance = await web3Modal.connect();
+        provider = new ethers.providers.Web3Provider(instance);
+        signer = provider.getSigner();
+        const address = await signer.getAddress();
+
+        walletAddress.innerText = "Connected: " + address;
+        connectButton.style.display = "none";
+        disconnectButton.style.display = "inline-block";
+
+        instance.on("disconnect", disconnectWallet);
+      } catch (err) {
+        console.error("Connection failed:", err);
+        alert("Failed to connect wallet.");
       }
     }
 
-    function disconnectWallet() {
-      signer = null;
+    async function disconnectWallet() {
+      if (web3Modal && web3Modal.clearCachedProvider) {
+        await web3Modal.clearCachedProvider();
+      }
       provider = null;
+      signer = null;
       walletAddress.innerText = "";
       connectButton.style.display = "inline-block";
       disconnectButton.style.display = "none";
@@ -130,6 +158,7 @@
 
     connectButton.addEventListener("click", connectWallet);
     disconnectButton.addEventListener("click", disconnectWallet);
+    window.addEventListener("load", init);
   </script>
 </body>
 </html>
