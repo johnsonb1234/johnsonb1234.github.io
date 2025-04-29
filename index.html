@@ -2,208 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LondrCoin ($LONDR)</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Wallet SDKs -->
-  <script src="https://cdn.jsdelivr.net/npm/@coinbase/wallet-sdk@3.10.1/dist/CoinbaseWalletSDK.min.js"></script>
+  <meta name="description" content="LondrCoin ($LONDR) is a meme-inspired ERC20 token celebrating innovation in laundry services, the gig economy, and decentralized rewards.">
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-  <script src="https://unpkg.com/web3modal@1.9.8/dist/index.js"></script>
-  <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
-
   <style>
-    html { scroll-behavior: smooth; }
     body {
-      margin: 0; padding: 20px;
       font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      background-image: radial-gradient(#d9e2ef 1px, transparent 1px);
-      background-size: 20px 20px;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
       text-align: center;
-      color: #495057;
     }
-    .logo-main {
-      max-width: 180px;
-      margin: 0 auto 20px;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    header {
+      padding: 20px;
     }
-    h1, h2 { color: #1b2a4e; margin: 0; }
-    h1 { font-size: 2.5em; margin-bottom: 10px; }
-    h2 { margin-top: 50px; font-size: 2em; }
-    p {
-      font-size: 1.1em;
-      margin: 0 auto 20px;
-      max-width: 800px;
-      line-height: 1.6;
-      padding: 0 10px;
+    img.logo {
+      max-width: 150px;
+      margin-bottom: 10px;
     }
-    .button {
-      display: inline-block;
-      margin: 10px;
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    .wallet-buttons {
+      margin-top: 20px;
+    }
+    button {
       padding: 12px 24px;
-      font-size: 1em;
-      color: white;
-      background-color: #0061f2;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: 0.3s;
+      font-size: 16px;
+      margin: 10px;
       cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background-color: #007bff;
+      color: white;
     }
-    .button:hover {
-      background-color: #0056d2;
-      transform: scale(1.05);
-    }
-    #wallet-address {
-      margin-top: 10px;
-      font-size: 0.9em;
-      color: #1b2a4e;
-    }
-    .card {
-      background: #ffffff;
-      padding: 30px;
-      margin: 30px auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      max-width: 900px;
+    button:disabled {
+      background-color: #ccc;
     }
     footer {
-      margin-top: 40px;
-      padding: 20px 0;
-      font-size: 0.9em;
-      color: #495057;
+      margin-top: 50px;
+      padding: 20px;
+      font-size: 14px;
+      color: #777;
     }
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 10px;
-    }
-    .social-links a {
-      color: #0061f2;
+    a {
+      color: #007bff;
       text-decoration: none;
-      font-size: 1.2em;
     }
   </style>
 </head>
 <body>
+  <header>
+    <img src="logo.png" alt="LondrCoin Logo" class="logo" />
+    <h1>LondrCoin ($LONDR)</h1>
+    <p>A meme-inspired ERC20 token for the decentralized future of laundry.</p>
+  </header>
 
-<a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank">
-  <img src="logo.png" alt="LondrCoin Logo" class="logo-main" />
-</a>
-
-<h1>Welcome to LondrCoin</h1>
-<p>Decentralized rewards for the service economy 🚀</p>
-
-<div id="wallet-buttons">
-  <button id="connectWallet" class="button">🔌 Connect Wallet</button>
-</div>
-<div id="wallet-address"></div>
-
-<div class="card" id="about-card">
-  <h2>About LondrCoin</h2>
-  <p>
-    LondrCoin ($LONDR) is a meme-inspired ERC20 token created to celebrate innovation in laundry services, the gig economy, and decentralized rewards.
-  </p>
-  <p>
-    The gig economy is booming, yet traditional loyalty programs and reward systems have failed to evolve. LondrCoin offers a decentralized way to incentivize service providers and customers alike through blockchain-based rewards.
-  </p>
-  <p>
-    Whether you're a customer, a service provider, or a crypto enthusiast — welcome to LondrCoin.
-  </p>
-</div>
-
-<footer>
-  <div>© 2025 LondrCoin. All rights reserved.</div>
-  <div><a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank" style="color:#0061f2;">📄 View Litepaper</a></div>
-  <div class="social-links">
-    <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">GitHub</a>
-    <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">LinkedIn</a>
+  <div class="wallet-buttons">
+    <button id="connectButton">Connect Wallet</button>
+    <button id="disconnectButton" style="display: none;">Disconnect Wallet</button>
+    <p id="walletAddress"></p>
   </div>
-</footer>
 
-<script>
-  let web3Modal, provider, signer;
+  <footer>
+    <p>&copy; LondrCoin 2025 | 
+      <a href="https://github.com/johnsonb1234/londrcoin" target="_blank">GitHub</a> | 
+      <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">LinkedIn</a> | 
+      <a href="litepaper.pdf" target="_blank">Litepaper</a>
+    </p>
+  </footer>
 
-  const providerOptions = {
-    coinbasewallet: {
-      package: window.CoinbaseWalletSDK,
-      options: {
-        appName: "LondrCoin",
-        infuraId: "e64a3f2efcf04a2fa16913fe3629bc97"
-      }
-    },
-    walletconnect: {
-      package: window.WalletConnectProvider.default,
-      options: {
-        infuraId: "e64a3f2efcf04a2fa16913fe3629bc97"
-      }
-    }
-  };
+  <script>
+    const connectButton = document.getElementById('connectButton');
+    const disconnectButton = document.getElementById('disconnectButton');
+    const walletAddress = document.getElementById('walletAddress');
+    let provider;
 
-  web3Modal = new window.Web3Modal.default({
-    cacheProvider: false,
-    providerOptions
-  });
-
-  async function connectWallet() {
-    try {
-      const instance = await web3Modal.connect();
-      provider = new ethers.providers.Web3Provider(instance);
-      signer = provider.getSigner();
-      const address = await signer.getAddress();
-      const shortAddress = address.substring(0, 6) + "..." + address.substring(address.length - 4);
-      document.getElementById('wallet-address').innerText = "Connected: " + shortAddress;
-      showConnectedOptions();
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  function showConnectedOptions() {
-    document.getElementById('wallet-buttons').innerHTML = `
-      <button id="disconnectWallet" class="button">🚪 Disconnect Wallet</button>
-      <button id="buyButton" class="button">🛒 Buy LondrCoin</button>
-    `;
-    document.getElementById('disconnectWallet').addEventListener('click', disconnectWallet);
-    document.getElementById('buyButton').addEventListener('click', buyAndAddToken);
-  }
-
-  function disconnectWallet() {
-    web3Modal.clearCachedProvider();
-    provider = null;
-    signer = null;
-    document.getElementById('wallet-address').innerText = "";
-    document.getElementById('wallet-buttons').innerHTML = `
-      <button id="connectWallet" class="button">🔌 Connect Wallet</button>
-    `;
-    document.getElementById('connectWallet').addEventListener('click', connectWallet);
-  }
-
-  async function buyAndAddToken() {
-    window.open("https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e", "_blank");
-    if (window.ethereum && window.ethereum.request) {
-      try {
-        await window.ethereum.request({
-          method: "wallet_watchAsset",
-          params: {
-            type: "ERC20",
-            options: {
-              address: "0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e",
-              symbol: "LONDR",
-              decimals: 18
-            }
-          }
-        });
-      } catch (err) {
-        console.error(err);
+    async function connectWallet() {
+      if (window.ethereum) {
+        try {
+          provider = new ethers.providers.Web3Provider(window.ethereum);
+          const accounts = await provider.send("eth_requestAccounts", []);
+          const address = accounts[0];
+          walletAddress.innerText = "Connected: " + address;
+          connectButton.style.display = "none";
+          disconnectButton.style.display = "inline-block";
+        } catch (error) {
+          console.error("Connection failed", error);
+        }
+      } else {
+        alert("MetaMask not detected. Please install it.");
       }
     }
-  }
 
-  document.getElementById("connectWallet").addEventListener("click", connectWallet);
-</script>
+    function disconnectWallet() {
+      walletAddress.innerText = "";
+      connectButton.style.display = "inline-block";
+      disconnectButton.style.display = "none";
+      provider = null;
+    }
 
+    connectButton.addEventListener('click', connectWallet);
+    disconnectButton.addEventListener('click', disconnectWallet);
+  </script>
 </body>
 </html>
