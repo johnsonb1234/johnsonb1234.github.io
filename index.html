@@ -3,176 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <title>LondrCoin ($LONDR)</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script src="https://kit.fontawesome.com/a2e0c6f91f.js" crossorigin="anonymous"></script>
   <style>
-    html { scroll-behavior: smooth; }
     body {
-      margin: 0; padding: 20px; min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
       background-color: #ffffff;
       background-image: radial-gradient(#d9e2ef 1px, transparent 1px);
       background-size: 20px 20px;
-      text-align: center; color: #495057;
-      display: flex; flex-direction: column; align-items: center;
-    }
-    .logo-main {
-      max-width: 180px; margin: 0 auto 20px;
-      border-radius: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-    h1, h2 { color: #1b2a4e; margin: 0; }
-    h1 { font-size: 2.5em; margin-bottom: 10px; }
-    h2 { margin-top: 50px; font-size: 2em; }
-    p {
-      font-size: 1.1em;
-      margin: 0 auto 20px;
-      max-width: 800px;
-      line-height: 1.6;
-      padding: 0 10px;
-    }
-    .button {
-      display: inline-block; margin: 10px; padding: 12px 24px;
-      font-size: 1em; color: white; background-color: #0061f2;
-      text-decoration: none; border-radius: 8px;
-      transition: 0.3s; cursor: pointer;
-    }
-    .button:hover {
-      background-color: #0056d2;
-      transform: scale(1.05);
-    }
-    #wallet-address {
-      margin-top: 10px;
-      font-size: 0.9em;
-      color: #1b2a4e;
-    }
-    .card {
-      background: #ffffff;
-      padding: 30px;
-      margin-top: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-      max-width: 900px;
       text-align: center;
+      color: #495057;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    img.logo {
+      max-width: 180px;
+      margin-bottom: 15px;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    .btn-row {
+      margin: 15px 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      text-decoration: none;
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 8px;
+      background-color: #495057;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.2s;
+    }
+    .btn:hover {
+      background-color: #343a40;
     }
     footer {
-      margin-top: 40px; padding: 20px 0;
-      font-size: 0.9em; color: #495057;
-    }
-    .social-links {
-      display: flex; justify-content: center;
-      gap: 15px; margin-top: 10px;
-      flex-wrap: wrap;
-    }
-    .social-links a {
-      color: #0061f2;
-      text-decoration: none;
-      font-size: 1.2em;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .social-links img {
-      width: 20px; height: 20px;
+      margin-top: 30px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-
-<img src="logo.png" alt="LondrCoin Logo" class="logo-main" />
-
-<h1>Welcome to LondrCoin</h1>
-<p>Decentralized rewards for the service economy 🚀</p>
-
-<!-- Connect Button -->
-<div id="wallet-buttons">
-  <button id="connectButton" class="button">🔌 Connect Wallet</button>
-</div>
-<div id="wallet-address"></div>
-
-<!-- About Section -->
-<div class="card" id="about-card">
-  <h2>About LondrCoin</h2>
+  <img src="logo.png" alt="LondrCoin Logo" class="logo" />
+  <h1>LondrCoin ($LONDR)</h1>
   <p>
-    LondrCoin ($LONDR) is a community-driven ERC20 token designed to innovate and celebrate decentralized rewards in the service economy.
+    LondrCoin ($LONDR) is a meme-inspired ERC20 token celebrating decentralized rewards, laundry innovation, and gig-economy empowerment.
   </p>
-  <p>
-    Through decentralized finance and blockchain technology, LondrCoin creates a fun and portable way to earn, trade, and reward participation in service-based micro-economies.
-  </p>
-  <p>
-    Join us as we wash away the old systems — and Londr in the new. 🚀
-  </p>
-</div>
 
-<!-- Footer -->
-<!-- Footer -->
-<footer>
-  <div>© 2025 LondrCoin. All rights reserved.</div>
-  <div class="social-links">
-    <a href="https://github.com/johnsonb1234/LondrCoin" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub"> GitHub
+  <div class="btn-row">
+    <a class="btn" href="https://etherscan.io/token/0x97d1A1b493D83A35A30d7D868e0e1D821F15D424" target="_blank">
+      <i class="fas fa-link"></i> View on Etherscan
     </a>
-    <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"> LinkedIn
+    <a class="btn" href="https://github.com/johnsonb1234/londrcoin" target="_blank">
+      <i class="fab fa-github"></i> GitHub
     </a>
-    <a href="LondrCoin_Litepaper_Clean_v1.pdf" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="Litepaper"> Litepaper
+    <a class="btn" href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">
+      <i class="fab fa-linkedin"></i> LinkedIn
     </a>
-    <a href="https://etherscan.io/address/0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Etherscan"> Contract
+    <a class="btn" href="litepaper.pdf" target="_blank">
+      <i class="fas fa-file-alt"></i> Litepaper
     </a>
   </div>
-</footer>
 
-<!-- Disclaimer -->
-<div style="margin-top: 20px; font-size: 0.8em; color: #6c757d; max-width: 800px; text-align: center; padding: 0 10px;">
-  <p><strong>Disclaimer:</strong> LondrCoin ($LONDR) is a meme-based cryptocurrency created for entertainment purposes only. We make no guarantees regarding its value, utility, or future performance. Always do your own research before making any financial decisions.</p>
-</div>
-</footer>
+  <h3>Connect with a Wallet</h3>
+  <div class="btn-row">
+    <a class="btn" href="https://metamask.io/" target="_blank">
+      <i class="fab fa-ethereum"></i> MetaMask
+    </a>
+    <a class="btn" href="https://www.trustwallet.com/" target="_blank">
+      <i class="fas fa-shield-alt"></i> Trust Wallet
+    </a>
+    <a class="btn" href="https://www.coinbase.com/wallet" target="_blank">
+      <i class="fab fa-coinbase"></i> Coinbase Wallet
+    </a>
+  </div>
 
-<!-- Wallet Logic -->
-<script>
-  async function connectWallet() {
-    if (typeof window.ethereum !== 'undefined') {
-      try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const address = accounts[0];
-        const shortAddress = address.slice(0,6) + '...' + address.slice(-4);
-        document.getElementById('wallet-address').innerText = 'Connected: ' + shortAddress;
-
-        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-        if (chainId !== '0x1') {
-          await window.ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0x1' }]
-          });
-        }
-
-        showConnectedOptions();
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      alert('MetaMask not detected. Please install it!');
-    }
-  }
-
-  function showConnectedOptions() {
-    document.getElementById('wallet-buttons').innerHTML = `
-      <button id="disconnectButton" class="button">🚪 Disconnect Wallet</button>
-      <a href="https://app.uniswap.org/#/swap?outputCurrency=0x5A270B46EE47c0CAcC4E22ce129D0ab161785D5e" target="_blank" class="button">🛒 Buy LondrCoin</a>
-    `;
-    document.getElementById('disconnectButton').addEventListener('click', disconnectWallet);
-  }
-
-  function disconnectWallet() {
-    document.getElementById('wallet-address').innerText = "";
-    document.getElementById('wallet-buttons').innerHTML = `
-      <button id="connectButton" class="button">🔌 Connect Wallet</button>
-    `;
-    document.getElementById('connectButton').addEventListener('click', connectWallet);
-  }
-
-  document.getElementById('connectButton').addEventListener('click', connectWallet);
-</script>
-
+  <footer>
+    &copy; 2025 LondrCoin. All rights reserved.
+  </footer>
 </body>
 </html>
