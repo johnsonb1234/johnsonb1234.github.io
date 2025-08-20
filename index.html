@@ -4,83 +4,46 @@
   <meta charset="UTF-8" />
   <title>LondrCoin ($LONDR)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LondrCoin ($LONDR) — meme-driven ERC-20 with fixed 100B supply, verified contract, and Uniswap liquidity." />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <script src="https://kit.fontawesome.com/a2e0c6f91f.js" crossorigin="anonymous"></script>
   <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      background-image: radial-gradient(#d9e2ef 1px, transparent 1px);
-      background-size: 20px 20px;
-      text-align: center;
-      color: #495057;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    :root{
+      --bg:#ffffff;
+      --dot:#d9e2ef;
+      --text:#495057;
+      --btn:#495057;
+      --btn-hover:#343a40;
+      --accent:#4F46E5;
+      --accent-hover:#3730a3;
+      --shadow:0 0 10px rgba(0,0,0,0.1);
     }
-    img.logo {
-      max-width: 180px;
-      margin-bottom: 15px;
+    *{box-sizing:border-box}
+    body{
+      margin:0;padding:20px;min-height:100vh;font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      background-image:radial-gradient(var(--dot) 1px,transparent 1px);
+      background-size:20px 20px;
+      color:var(--text);display:flex;flex-direction:column;align-items:center;text-align:center;
     }
-    h1 {
-      margin-top: 0;
+    img.logo{max-width:180px;margin-bottom:15px}
+    h1{margin:0 0 4px}
+    h2{margin:30px 0 10px}
+    .btn-row{margin:15px 0;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .btn{
+      text-decoration:none;padding:8px 12px;font-size:14px;border-radius:8px;
+      background:var(--btn);color:#fff;display:inline-flex;align-items:center;gap:6px;
+      transition:background .2s,transform .06s ease-in-out; box-shadow:var(--shadow)
     }
-    h2 {
-      margin-top: 30px;
+    .btn:hover{background:var(--btn-hover);transform:translateY(-1px)}
+    .btn-accent{background:var(--accent)}
+    .btn-accent:hover{background:var(--accent-hover)}
+    .section{max-width:700px;text-align:left;margin:20px auto;padding:0 10px}
+    ul{text-align:left;margin:0 0 4px}
+    iframe{
+      margin-top:20px;border:none;width:100%;max-width:700px;height:500px;border-radius:10px;box-shadow:var(--shadow)
     }
-    .btn-row {
-      margin: 15px 0;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .btn {
-      text-decoration: none;
-      padding: 8px 12px;
-      font-size: 14px;
-      border-radius: 8px;
-      background-color: #495057;
-      color: #fff;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background-color 0.2s;
-    }
-    .btn:hover {
-      background-color: #343a40;
-    }
-    .btn-purple {
-      background-color: #4F46E5;
-    }
-    .btn-purple:hover {
-      background-color: #3730a3;
-    }
-    .section {
-      max-width: 700px;
-      text-align: left;
-      margin: 20px auto;
-      padding: 0 10px;
-    }
-    ul {
-      text-align: left;
-    }
-    iframe {
-      margin-top: 20px;
-      border: none;
-      width: 100%;
-      max-width: 700px;
-      height: 500px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    footer {
-      margin-top: 40px;
-      font-size: 14px;
-    }
+    footer{margin-top:40px;font-size:14px}
   </style>
 </head>
 <body>
@@ -89,10 +52,13 @@
 
   <div class="section">
     <p>
-      LondrCoin ($LONDR) is more than a meme — it's a movement. Created as the native token of the Londr platform, LondrCoin represents the fusion of decentralized finance and real-world services like laundry delivery, gig work, and community-driven microeconomies.
+      LondrCoin ($LONDR) is more than a meme — it's a movement. Created as the native token of the Londr platform,
+      LondrCoin represents the fusion of decentralized finance and real-world services like laundry delivery, gig work,
+      and community-driven microeconomies.
     </p>
     <p>
-      With a fixed supply and no hidden taxes, $LONDR is designed to reward participation, empower local service providers, and fuel innovation in one of the most overlooked industries: laundry. It's bold, community-powered, and just getting started.
+      With a fixed supply and no hidden taxes, $LONDR is designed to reward participation, empower local service providers,
+      and fuel innovation in one of the most overlooked industries: laundry. It's bold, community-powered, and just getting started.
     </p>
     <p>
       Whether you're holding for fun, trading for growth, or building on top of the Londr ecosystem, $LONDR gives power back to the people — one wash at a time.
@@ -100,16 +66,19 @@
   </div>
 
   <div class="btn-row">
-    <a class="btn" href="https://etherscan.io/token/0x97d1A1b493D83A35A30d7D868e0e1D821F15D424" target="_blank">
+    <a class="btn" href="https://etherscan.io/token/0x97d1A1b493D83A35A30d7D868e0e1D821F15D424" target="_blank" rel="noopener">
       <i class="fas fa-link"></i> Etherscan
     </a>
-    <a class="btn" href="https://github.com/johnsonb1234/londrcoin" target="_blank">
+    <a class="btn" href="https://github.com/johnsonb1234/londrcoin" target="_blank" rel="noopener">
       <i class="fab fa-github"></i> GitHub
     </a>
-    <a class="btn" href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">
+    <a class="btn" href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank" rel="noopener">
       <i class="fab fa-linkedin"></i> LinkedIn
     </a>
-    <a class="btn btn-purple" href="LondrCoin_Litepaper_.pdf" target="_blank" rel="noopener">
+    <!-- Litepaper: use full GitHub Pages URL so it works everywhere -->
+    <a class="btn btn-accent"
+       href="https://johnsonb1234.github.io/LondrCoin_Litepaper_.pdf"
+       target="_blank" rel="noopener">
       <i class="fas fa-file-pdf"></i> View Litepaper (PDF)
     </a>
   </div>
@@ -140,17 +109,22 @@
   </div>
 
   <h2>Live Chart</h2>
-  <iframe src="https://www.dextools.io/widget-chart/en/ether/pe-light/0x97d1A1b493D83A35A30d7D868e0e1D821F15D424?theme=light&chartType=1" allowfullscreen></iframe>
+  <iframe
+    src="https://www.dextools.io/widget-chart/en/ether/pe-light/0x97d1A1b493D83A35A30d7D868e0e1D821F15D424?theme=light&chartType=1"
+    allowfullscreen></iframe>
 
   <h2>Wallets</h2>
   <div class="btn-row">
-    <a class="btn" href="https://metamask.io/" target="_blank">
+    <a class="btn" href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x97d1A1b493D83A35A30d7D868e0e1D821F15D424" target="_blank" rel="noopener">
+      <i class="fas fa-exchange-alt"></i> Buy on Uniswap
+    </a>
+    <a class="btn" href="https://metamask.io/" target="_blank" rel="noopener">
       <i class="fab fa-ethereum"></i> MetaMask
     </a>
-    <a class="btn" href="https://www.trustwallet.com/" target="_blank">
+    <a class="btn" href="https://www.trustwallet.com/" target="_blank" rel="noopener">
       <i class="fas fa-shield-alt"></i> Trust Wallet
     </a>
-    <a class="btn" href="https://www.coinbase.com/wallet" target="_blank">
+    <a class="btn" href="https://www.coinbase.com/wallet" target="_blank" rel="noopener">
       <i class="fab fa-coinbase"></i> Coinbase Wallet
     </a>
   </div>
