@@ -1,193 +1,1432 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>LondrCoin ($LONDR)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LondrCoin ($LONDR) | Utility for the Gig Economy</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%2300E5FF' opacity='0.15' stroke='%2300E5FF' stroke-width='1.5'/><text x='16' y='21' text-anchor='middle' font-size='14' fill='%2300E5FF' font-family='sans-serif' font-weight='bold'>L</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
-  <!-- Favicons -->
-  <link rel="icon" href="londrcoin_icon_32x32.png" type="image/png" sizes="32x32">
-  <link rel="icon" href="logo.png" type="image/png" sizes="512x512">
-  <link rel="apple-touch-icon" href="logo.png">
+<style>
+/* ─── RESET ─── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="LondrCoin ($LONDR) — Utility for the Gig Economy">
-  <meta property="og:description" content="An ERC-20 token powering Londr’s real-world gig services and community rewards.">
-  <meta property="og:url" content="https://www.londrcoin.com/">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://www.londrcoin.com/logo.png">
+:root {
+  --cyan:    #00E5FF;
+  --violet:  #7B2FFF;
+  --pink:    #FF4ECD;
+  --bg:      #050510;
+  --surface: #0D0D2B;
+  --text:    #E8E8FF;
+  --muted:   #9090BB;
+  --border:  rgba(0,229,255,0.12);
+  --glow-c:  0 0 24px rgba(0,229,255,0.45), 0 0 60px rgba(0,229,255,0.18);
+  --glow-v:  0 0 24px rgba(123,47,255,0.45), 0 0 60px rgba(123,47,255,0.18);
+}
 
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="LondrCoin ($LONDR)">
-  <meta name="twitter:description" content="Utility token for Londr’s gig-economy services.">
-  <meta name="twitter:image" content="https://www.londrcoin.com/logo.png">
+html { scroll-behavior: smooth; }
 
-  <!-- Organization / Project JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"LondrCoin",
-    "url":"https://www.londrcoin.com/",
-    "logo":"https://www.londrcoin.com/logo.png",
-    "email":"info@londrcoin.com",
-    "sameAs":[
-      "https://t.me/LondrCoinOfficial",
-      "https://github.com/johnsonb1234/londrcoin",
-      "https://www.facebook.com/londrcoin",
-      "https://www.linkedin.com/company/londrcoin"
-    ],
-    "founder": {
-      "@type":"Person",
-      "name":"Benjamin Johnson",
-      "sameAs":["https://www.linkedin.com/in/benjamin-johnson-4b6479119/"]
-    }
-  }
-  </script>
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      color: #2d3748;
-      background-color: #ffffff;
-      line-height: 1.6;
-    }
-    header {
-      text-align: center;
-      padding: 40px 20px;
-      background: linear-gradient(135deg, #2563eb, #1e3a8a);
-      color: #fff;
-    }
-    header h1 { margin: 0; font-size: 2.5rem; }
-    header p { margin-top: 10px; font-size: 1.2rem; }
-    header img { border-radius: 20%; margin-bottom: 16px; }
-    section { max-width: 1100px; margin: 0 auto; padding: 56px 20px; }
-    h1, h2 { color: #1e293b; }
-    ul { padding-left: 18px; }
-    code { background:#f1f5f9; padding:2px 4px; border-radius:4px; }
-    footer {
-      border-top: 1px solid #e2e8f0;
-      margin-top: 24px;
-      background: #f9fafb;
-    }
-    footer div {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 18px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      color: #4a5568;
-    }
-    footer a { color: #2563eb; text-decoration: none; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .card { border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px; background: #fff; }
-    details summary { cursor: pointer; }
-  </style>
+h1,h2,h3,h4,h5 { font-family: 'Space Grotesk', sans-serif; }
+
+/* ─── CURSOR ─── */
+#cursor-ring {
+  position: fixed; top:0; left:0;
+  width:34px; height:34px;
+  border: 2px solid var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 14px rgba(0,229,255,0.55);
+  will-change: transform;
+  transition: width .18s, height .18s, border-color .18s;
+  opacity: 0; /* revealed on first mousemove */
+}
+#cursor-dot {
+  position: fixed; top:0; left:0;
+  width:5px; height:5px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100000;
+  transform: translate(-50%,-50%);
+  will-change: transform;
+  opacity: 0; /* revealed on first mousemove */
+}
+
+/* ─── INTRO OVERLAY ─── */
+#intro-overlay {
+  position: fixed; inset:0;
+  background: #000;
+  z-index: 9000;
+  display: none;               /* hidden by default; JS shows it immediately */
+  align-items: center;
+  justify-content: center;
+}
+#intro-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: .22em;
+  text-shadow: 0 0 40px rgba(0,229,255,.8), 0 0 100px rgba(0,229,255,.3);
+}
+.glitch { position:relative; display:inline-block; }
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute; top:0; left:0;
+  width:100%; height:100%;
+}
+.glitch::before {
+  color: var(--pink);
+  clip-path: polygon(0 0,100% 0,100% 35%,0 35%);
+  animation: g1 .35s infinite linear alternate-reverse;
+}
+.glitch::after {
+  color: var(--violet);
+  clip-path: polygon(0 65%,100% 65%,100% 100%,0 100%);
+  animation: g2 .28s infinite linear alternate-reverse;
+}
+@keyframes g1 { 0%{transform:translate(-3px,0) skewX(-2deg)} 100%{transform:translate(3px,1px) skewX(2deg)} }
+@keyframes g2 { 0%{transform:translate(3px,0) skewX(2deg)} 100%{transform:translate(-2px,-1px) skewX(-1deg)} }
+
+/* ─── PARTICLES ─── */
+#tsparticles {
+  position:fixed; inset:0; z-index:0;
+  pointer-events:none;
+}
+
+/* ─── SECTION DIVIDER ─── */
+.divider {
+  position:relative; z-index:2;
+  width:100%; height:1px;
+  background: linear-gradient(90deg, transparent 0%, var(--cyan) 30%, var(--violet) 70%, transparent 100%);
+  opacity:.35;
+}
+
+/* ════════════════════════════════════════
+   NAVBAR
+════════════════════════════════════════ */
+#navbar {
+  position:fixed; top:0; left:0; right:0;
+  z-index:1000;
+  padding:1.1rem 2.5rem;
+  display:flex; align-items:center; justify-content:space-between;
+  transition: background .3s, backdrop-filter .3s, box-shadow .3s;
+}
+#navbar.scrolled {
+  background: rgba(5,5,16,.88);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 1px 0 rgba(0,229,255,.1);
+}
+.nav-logo {
+  font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.25rem;
+  color:var(--text); text-decoration:none;
+  display:flex; align-items:center; gap:.55rem;
+}
+.nav-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:var(--cyan); box-shadow:0 0 10px var(--cyan);
+  animation: bdot 1.6s ease-in-out infinite;
+}
+@keyframes bdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.65)} }
+.nav-links { display:flex; align-items:center; gap:2.5rem; list-style:none; }
+.nav-links a {
+  color:var(--muted); text-decoration:none;
+  font-size:.88rem; font-weight:500; letter-spacing:.02em;
+  transition:color .2s;
+}
+.nav-links a:hover { color:var(--cyan); }
+.btn-nav {
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  color:#050510 !important; font-weight:700 !important;
+  padding:.5rem 1.35rem; border-radius:50px;
+  font-size:.85rem !important; letter-spacing:.04em;
+  text-decoration:none;
+  transition: box-shadow .3s, transform .2s;
+}
+.btn-nav:hover { box-shadow:var(--glow-c); transform:scale(1.06) !important; }
+
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:none; padding:4px; }
+.hamburger span { display:block; width:24px; height:2px; background:var(--text); transition:all .3s; }
+
+#mobile-menu {
+  display:none; position:fixed;
+  top:68px; left:0; right:0;
+  background:rgba(5,5,16,.97);
+  backdrop-filter:blur(20px);
+  padding:1.5rem 2rem;
+  z-index:999;
+  border-bottom:1px solid var(--border);
+}
+#mobile-menu.open { display:block; }
+#mobile-menu a {
+  display:block; color:var(--muted); text-decoration:none;
+  font-size:1.1rem; padding:.9rem 0;
+  border-bottom:1px solid var(--border);
+  transition:color .2s;
+}
+#mobile-menu a:hover { color:var(--cyan); }
+#mobile-menu .btn-nav { display:inline-block; margin-top:1rem; }
+@media(max-width:768px){ .nav-links{display:none} .hamburger{display:flex} }
+
+/* ════════════════════════════════════════
+   HERO
+════════════════════════════════════════ */
+#hero {
+  position:relative; min-height:100vh;
+  display:flex; align-items:center;
+  padding:8rem 2.5rem 5rem;
+  overflow:hidden;
+}
+
+/* CSS-only deep space background */
+#hero::before {
+  content:'';
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 80% 70% at 75% 50%, rgba(123,47,255,.24) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 90% at 92% 35%, rgba(0,229,255,.18) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 35% at 15% 85%, rgba(255,78,205,.09) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 50% 0%,  rgba(0,229,255,.08) 0%, transparent 55%);
+}
+/* Grid mesh overlay */
+#hero::after {
+  content:'';
+  position:absolute; inset:0; z-index:0;
+  background-image:
+    linear-gradient(rgba(0,229,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── HERO COIN IMAGE ── */
+.hero-coin {
+  position:absolute; right:6%; top:50%;
+  transform:translateY(-50%);
+  width:420px; height:420px;
+  pointer-events:none; z-index:1;
+}
+.hero-coin-img {
+  width:100%; height:100%;
+  object-fit:contain;
+  filter:
+    drop-shadow(0 0 40px rgba(0,229,255,.55))
+    drop-shadow(0 0 80px rgba(0,229,255,.25))
+    drop-shadow(0 30px 60px rgba(123,47,255,.3));
+  animation: coin-float 5s ease-in-out infinite, coin-glow 3s ease-in-out infinite alternate;
+  will-change:transform, filter;
+}
+@keyframes coin-float {
+  0%,100% { transform:translateY(0) rotate(-2deg); }
+  50%      { transform:translateY(-22px) rotate(2deg); }
+}
+@keyframes coin-glow {
+  0%   { filter: drop-shadow(0 0 30px rgba(0,229,255,.45)) drop-shadow(0 0 70px rgba(0,229,255,.2))  drop-shadow(0 30px 50px rgba(123,47,255,.25)); }
+  100% { filter: drop-shadow(0 0 55px rgba(0,229,255,.75)) drop-shadow(0 0 110px rgba(0,229,255,.35)) drop-shadow(0 30px 70px rgba(123,47,255,.45)); }
+}
+.hero-coin-ring {
+  position:absolute; border-radius:50%;
+  border:1px solid rgba(0,229,255,.18);
+  pointer-events:none;
+  top:50%; left:50%; transform:translate(-50%,-50%);
+}
+.hero-coin-ring-1 { width:470px; height:470px; animation:cring 3s ease-in-out infinite; }
+.hero-coin-ring-2 { width:530px; height:530px; animation:cring 3s ease-in-out infinite .9s; border-color:rgba(123,47,255,.1); }
+.hero-coin-ring-3 { width:600px; height:600px; animation:cring 3s ease-in-out infinite 1.8s; border-color:rgba(0,229,255,.06); }
+@keyframes cring { 0%,100%{opacity:.35;transform:translate(-50%,-50%) scale(1)} 50%{opacity:.85;transform:translate(-50%,-50%) scale(1.03)} }
+@media(max-width:1000px){ .hero-coin { display:none; } }
+
+/* Floating accent shapes */
+.hero-shapes { position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
+.hs {
+  position:absolute; border:1px solid;
+  opacity:.12; border-radius:2px;
+  will-change:transform; animation:fshape linear infinite;
+}
+.hs:nth-child(1){width:80px;height:80px;border-color:var(--cyan);top:22%;left:55%;animation-duration:20s;}
+.hs:nth-child(2){width:50px;height:50px;border-color:var(--violet);top:65%;left:60%;animation-duration:25s;border-radius:50%;}
+.hs:nth-child(3){width:110px;height:110px;border-color:var(--pink);top:10%;left:48%;animation-duration:17s;transform:rotate(45deg);}
+.hs:nth-child(4){width:40px;height:40px;border-color:var(--cyan);top:75%;left:53%;animation-duration:28s;}
+.hs:nth-child(5){width:65px;height:65px;border-color:var(--violet);top:42%;left:65%;animation-duration:22s;border-radius:50%;}
+@keyframes fshape { 0%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-30px) rotate(180deg)} 100%{transform:translateY(0) rotate(360deg)} }
+
+.hero-content { position:relative; z-index:2; max-width:620px; }
+
+/* ── HERO STATS ── */
+.hero-stats { display:flex; gap:0; flex-wrap:wrap; margin-top:.5rem; }
+.stat-item {
+  text-align:left; padding-right:2.5rem;
+  border-right:1px solid rgba(0,229,255,.15);
+  margin-right:2.5rem;
+}
+.stat-item:last-child { border-right:none; margin-right:0; }
+
+.hero-badge {
+  display:inline-flex; align-items:center; gap:.5rem;
+  background:rgba(0,229,255,.08);
+  border:1px solid rgba(0,229,255,.28);
+  border-radius:50px; padding:.4rem 1.1rem;
+  font-size:.78rem; font-weight:600; letter-spacing:.07em;
+  color:var(--cyan); margin-bottom:1.8rem;
+}
+.badge-blink {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--cyan); box-shadow:0 0 8px var(--cyan);
+  animation:bdot 1.2s ease-in-out infinite;
+}
+
+.hero-h1 {
+  font-size:clamp(2.6rem,6vw,5.2rem);
+  font-weight:700; line-height:1.06;
+  letter-spacing:-.025em; margin-bottom:1.4rem;
+  background:linear-gradient(140deg, #ffffff 30%, var(--cyan) 70%, var(--violet) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.hero-sub {
+  font-size:1.1rem; color:var(--muted);
+  line-height:1.75; margin-bottom:2.4rem; max-width:520px;
+}
+
+.hero-btns { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:1.8rem; }
+
+.btn-primary {
+  display:inline-flex; align-items:center; gap:.55rem;
+  background:linear-gradient(135deg,var(--cyan),#0088CC);
+  color:#050510; font-family:'Space Grotesk',sans-serif;
+  font-weight:700; font-size:.93rem;
+  padding:.82rem 2rem; border-radius:50px;
+  text-decoration:none; border:none; cursor:none;
+  position:relative; overflow:hidden;
+  transition:box-shadow .3s, transform .2s;
+  box-shadow: 0 4px 24px rgba(0,229,255,.25);
+}
+.btn-primary::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,transparent 0%,rgba(255,255,255,.22) 50%,transparent 100%);
+  transform:translateX(-100%); transition:transform .4s;
+}
+.btn-primary:hover::after { transform:translateX(100%); }
+.btn-primary:hover { box-shadow:var(--glow-c); transform:scale(1.04) translateY(-2px); }
+
+.btn-outline {
+  display:inline-flex; align-items:center; gap:.55rem;
+  background:transparent;
+  color:var(--text); font-family:'Space Grotesk',sans-serif;
+  font-weight:600; font-size:.93rem;
+  padding:.82rem 2rem; border-radius:50px;
+  text-decoration:none; border:1px solid rgba(255,255,255,.18); cursor:none;
+  transition:border-color .3s, color .3s, box-shadow .3s, transform .2s;
+}
+.btn-outline:hover {
+  border-color:var(--cyan); color:var(--cyan);
+  box-shadow:0 0 22px rgba(0,229,255,.22);
+  transform:scale(1.04) translateY(-2px);
+}
+
+.contract-row {
+  display:flex; align-items:center; gap:.75rem;
+  background:rgba(0,229,255,.05);
+  border:1px solid rgba(0,229,255,.18);
+  border-radius:12px; padding:.65rem 1.1rem;
+  margin-bottom:2.8rem; max-width:fit-content;
+  backdrop-filter:blur(8px);
+}
+.contract-label {
+  font-size:.7rem; letter-spacing:.1em;
+  color:var(--muted); text-transform:uppercase; white-space:nowrap;
+}
+.contract-addr {
+  font-family:'Space Grotesk',monospace; font-size:.8rem;
+  color:var(--cyan); letter-spacing:.02em;
+}
+.copy-btn {
+  background:none; border:none; cursor:none;
+  color:var(--muted); padding:2px 4px; border-radius:4px;
+  transition:color .2s; font-size:.9rem;
+  display:flex; align-items:center;
+}
+.copy-btn:hover { color:var(--cyan); }
+.copy-btn.copied { color:#00FF88; }
+
+.stat-value {
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.5rem; font-weight:700; color:var(--cyan);
+  text-shadow:0 0 18px rgba(0,229,255,.5);
+}
+.stat-label {
+  font-size:.72rem; color:var(--muted);
+  text-transform:uppercase; letter-spacing:.08em; margin-top:.3rem;
+}
+
+/* ════════════════════════════════════════
+   MARQUEE
+════════════════════════════════════════ */
+#marquee-bar {
+  position:relative; z-index:2;
+  background:#070719;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:.95rem 0; overflow:hidden;
+}
+.marquee-inner { display:flex; width:max-content; animation:mscroll 32s linear infinite; }
+.marquee-inner span {
+  font-family:'Space Grotesk',sans-serif;
+  font-size:.78rem; font-weight:600; letter-spacing:.14em;
+  color:var(--cyan); padding:0 2.2rem;
+  white-space:nowrap;
+}
+.marquee-inner span.dot { color:var(--violet); opacity:.55; padding:0 .4rem; }
+@keyframes mscroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ════════════════════════════════════════
+   SHARED SECTION BASE
+════════════════════════════════════════ */
+section { position:relative; z-index:2; padding:7rem 2.5rem; }
+.container { max-width:1200px; margin:0 auto; }
+
+.sec-label {
+  font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--cyan); font-weight:600;
+  display:flex; align-items:center; gap:.65rem; margin-bottom:1.1rem;
+}
+.sec-label::before {
+  content:''; display:inline-block; width:28px; height:1px; background:var(--cyan);
+}
+
+.sec-h2 {
+  font-size:clamp(2rem,4.5vw,3.4rem);
+  font-weight:700; line-height:1.14;
+  letter-spacing:-.022em; margin-bottom:1.5rem;
+}
+
+/* ════════════════════════════════════════
+   ABOUT
+════════════════════════════════════════ */
+#about {
+  background:
+    radial-gradient(ellipse 60% 60% at 100% 50%, rgba(123,47,255,.1) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 0% 50%, rgba(0,229,255,.06) 0%, transparent 60%);
+}
+.about-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:5rem; align-items:center;
+}
+.about-lead {
+  font-size:clamp(1.8rem,3.5vw,2.6rem);
+  font-weight:700; line-height:1.18;
+  letter-spacing:-.02em; margin-bottom:1.6rem;
+}
+.about-lead .cy { color:var(--cyan); }
+.about-p {
+  font-size:1.02rem; color:var(--muted);
+  line-height:1.82; margin-bottom:.9rem;
+}
+
+/* Bento grid */
+.bento-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.bento-card {
+  background:linear-gradient(145deg, rgba(13,13,43,.9), rgba(13,13,43,.6));
+  border:1px solid rgba(0,229,255,.13);
+  border-radius:18px; padding:1.6rem 1.4rem;
+  transition:transform .3s, box-shadow .3s, border-color .3s;
+  will-change:transform; transform-style:preserve-3d;
+  backdrop-filter:blur(6px);
+}
+.bento-card:hover {
+  box-shadow:0 8px 40px rgba(0,229,255,.14), 0 0 0 1px rgba(0,229,255,.32);
+  border-color:rgba(0,229,255,.38);
+}
+.bento-icon { font-size:1.9rem; margin-bottom:.8rem; }
+.bento-title {
+  font-family:'Space Grotesk',sans-serif;
+  font-size:.95rem; font-weight:600; margin-bottom:.4rem; color:var(--text);
+}
+.bento-desc { font-size:.82rem; color:var(--muted); line-height:1.65; }
+
+/* Colored top-border accent per card */
+.bento-card:nth-child(1) { border-top:2px solid var(--cyan); }
+.bento-card:nth-child(2) { border-top:2px solid var(--violet); }
+.bento-card:nth-child(3) { border-top:2px solid var(--pink); }
+.bento-card:nth-child(4) { border-top:2px solid #00FF88; }
+
+@media(max-width:900px){ .about-grid{grid-template-columns:1fr;gap:3rem} }
+@media(max-width:600px){ .bento-grid{grid-template-columns:1fr} }
+
+/* ════════════════════════════════════════
+   HOW IT WORKS
+════════════════════════════════════════ */
+#how-it-works {
+  text-align:center;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(0,229,255,.06) 0%, transparent 60%);
+}
+.steps-wrap {
+  position:relative; display:flex;
+  justify-content:center; align-items:flex-start;
+  gap:2rem; margin-top:4rem; flex-wrap:wrap;
+}
+.step-line-svg {
+  position:absolute; top:48px; left:50%;
+  transform:translateX(-50%); width:58%; pointer-events:none;
+}
+.step-line-svg line {
+  stroke:var(--cyan); stroke-width:1.5;
+  stroke-dasharray:7 5; stroke-dashoffset:200;
+}
+.step-card {
+  flex:1; min-width:220px; max-width:280px; position:relative; z-index:1;
+  background:rgba(13,13,43,.7);
+  border:1px solid rgba(0,229,255,.12);
+  border-radius:20px; padding:2rem 1.5rem;
+  backdrop-filter:blur(8px);
+  transition:border-color .3s, box-shadow .3s;
+}
+.step-card:hover {
+  border-color:rgba(0,229,255,.3);
+  box-shadow:0 8px 32px rgba(0,229,255,.1);
+}
+.step-num {
+  font-family:'Space Grotesk',sans-serif;
+  font-size:3.5rem; font-weight:700;
+  color:rgba(0,229,255,.18); line-height:1; margin-bottom:.4rem;
+}
+.step-icon { font-size:2.4rem; margin-bottom:.9rem; filter:drop-shadow(0 0 10px var(--cyan)); }
+.step-title { font-family:'Space Grotesk',sans-serif; font-size:1.08rem; font-weight:600; margin-bottom:.5rem; }
+.step-desc { font-size:.86rem; color:var(--muted); line-height:1.65; }
+@media(max-width:768px){ .step-line-svg{display:none} .steps-wrap{flex-direction:column;align-items:center} }
+
+/* ════════════════════════════════════════
+   TOKENOMICS
+════════════════════════════════════════ */
+#tokenomics {
+  text-align:center;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, #090921 50%, var(--bg) 100%),
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123,47,255,.08) 0%, transparent 70%);
+  background-blend-mode:normal;
+}
+.underline-anim { position:relative; display:inline-block; }
+.underline-anim::after {
+  content:''; position:absolute; bottom:-8px; left:0;
+  width:0; height:3px;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));
+  border-radius:2px; transition:width .7s ease;
+}
+.underline-anim.lit::after { width:100%; }
+
+.token-chart-wrap {
+  display:flex; align-items:center; justify-content:center;
+  gap:4rem; flex-wrap:wrap; margin:3.5rem 0;
+}
+.donut-wrap { position:relative; display:flex; align-items:center; justify-content:center; }
+#donut-svg {
+  width:270px; height:270px; transform:rotate(-90deg);
+  filter:drop-shadow(0 0 22px rgba(0,229,255,.28));
+}
+.donut-label {
+  position:absolute; text-align:center; pointer-events:none;
+}
+.dl-value {
+  font-family:'Space Grotesk',sans-serif; font-size:1.8rem;
+  font-weight:700; color:var(--cyan);
+}
+.dl-sub { font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.09em; }
+.legend { display:flex; flex-direction:column; gap:1.1rem; text-align:left; }
+.leg-item { display:flex; align-items:center; gap:.8rem; }
+.leg-dot { width:13px; height:13px; border-radius:3px; flex-shrink:0; }
+.leg-lbl { font-size:.88rem; color:var(--muted); }
+.leg-val { font-family:'Space Grotesk',sans-serif; font-weight:600; color:var(--text); margin-left:auto; padding-left:1.2rem; }
+
+.token-stats {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
+  gap:1rem; margin-top:2.8rem;
+}
+.tstat {
+  background:rgba(0,229,255,.04); border:1px solid var(--border);
+  border-radius:14px; padding:1.2rem 1.4rem; text-align:left;
+  transition:border-color .2s, box-shadow .2s;
+}
+.tstat:hover { border-color:rgba(0,229,255,.3); box-shadow:0 0 20px rgba(0,229,255,.08); }
+.tstat-lbl { font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:.4rem; }
+.tstat-val { font-family:'Space Grotesk',sans-serif; font-size:1rem; font-weight:600; color:var(--text); }
+
+.contract-block {
+  display:inline-flex; align-items:center; gap:1rem;
+  background:rgba(0,229,255,.05); border:1px solid rgba(0,229,255,.22);
+  border-radius:14px; padding:1.1rem 1.6rem; margin-top:2.8rem;
+  flex-wrap:wrap; justify-content:center;
+}
+.cb-label { font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
+.cb-addr { font-family:'Space Grotesk',monospace; font-size:.92rem; color:var(--cyan); letter-spacing:.04em; }
+.btn-esc {
+  display:inline-flex; align-items:center; gap:.4rem;
+  background:linear-gradient(135deg,var(--cyan),var(--violet));
+  color:#050510; font-weight:700; font-size:.8rem;
+  padding:.5rem 1.15rem; border-radius:50px;
+  text-decoration:none; transition:box-shadow .3s, transform .2s;
+}
+.btn-esc:hover { box-shadow:var(--glow-c); transform:scale(1.05); }
+@media(max-width:768px){ .token-chart-wrap{flex-direction:column} }
+
+/* ════════════════════════════════════════
+   TEAM
+════════════════════════════════════════ */
+#team {
+  text-align:center;
+  background:
+    radial-gradient(ellipse 50% 70% at 50% 50%, rgba(123,47,255,.1) 0%, transparent 65%);
+}
+.team-card {
+  display:inline-block;
+  background:rgba(13,13,43,.72);
+  backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+  border:1px solid rgba(0,229,255,.18);
+  border-radius:26px; padding:3rem 4rem;
+  max-width:460px; width:100%;
+  transition:box-shadow .35s, border-color .35s;
+}
+.team-card:hover {
+  box-shadow:0 24px 64px rgba(0,229,255,.12), 0 0 0 1px rgba(0,229,255,.32);
+  border-color:rgba(0,229,255,.38);
+}
+.avatar-wrap { position:relative; width:116px; height:116px; margin:0 auto 1.6rem; }
+.avatar-bg {
+  width:116px; height:116px; border-radius:50%;
+  background:linear-gradient(135deg,var(--violet),var(--cyan));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Space Grotesk',sans-serif; font-size:2.4rem;
+  font-weight:700; color:#fff; position:relative; z-index:1;
+  overflow:hidden;
+}
+.avatar-bg img {
+  width:100%; height:100%; object-fit:cover; border-radius:50%;
+}
+.avatar-ring {
+  position:absolute; inset:-6px; border-radius:50%;
+  border:2px solid var(--cyan);
+  animation:rpulse 2.2s ease-in-out infinite;
+}
+@keyframes rpulse {
+  0%,100%{box-shadow:0 0 0 0 rgba(0,229,255,.42);opacity:1}
+  50%{box-shadow:0 0 0 10px rgba(0,229,255,0);opacity:.7}
+}
+.member-name { font-family:'Space Grotesk',sans-serif; font-size:1.45rem; font-weight:700; margin-bottom:.3rem; }
+.member-role { font-size:.82rem; color:var(--cyan); text-transform:uppercase; letter-spacing:.12em; font-weight:600; margin-bottom:1.1rem; }
+.member-bio { font-size:.9rem; color:var(--muted); line-height:1.75; margin-bottom:1.6rem; }
+.social-row { display:flex; gap:.75rem; justify-content:center; }
+.soc-btn {
+  width:44px; height:44px; border-radius:50%;
+  background:rgba(255,255,255,.05); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  text-decoration:none; color:var(--muted); font-size:1rem;
+  transition:background .2s, color .2s, border-color .2s, box-shadow .2s;
+}
+.soc-btn:hover {
+  background:rgba(0,229,255,.12); color:var(--cyan);
+  border-color:rgba(0,229,255,.4); box-shadow:0 0 14px rgba(0,229,255,.3);
+}
+@media(max-width:540px){ .team-card{padding:2rem 1.5rem} }
+
+/* ════════════════════════════════════════
+   FAQ
+════════════════════════════════════════ */
+#faq {
+  background:
+    linear-gradient(180deg,#060618,var(--bg));
+}
+.faq-list { max-width:760px; margin:3rem auto 0; }
+.faq-item { border-bottom:1px solid var(--border); }
+.faq-q {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.35rem 0; cursor:none;
+  font-family:'Space Grotesk',sans-serif; font-size:1rem; font-weight:500;
+  color:var(--text); gap:1rem; user-select:none; transition:color .2s;
+}
+.faq-q:hover { color:var(--cyan); }
+.faq-arrow { color:var(--cyan); transition:transform .3s; flex-shrink:0; }
+.faq-item.open .faq-arrow { transform:rotate(180deg); }
+.faq-a { max-height:0; overflow:hidden; font-size:.9rem; color:var(--muted); line-height:1.8; }
+.faq-a-inner { padding-bottom:1.3rem; }
+
+/* ════════════════════════════════════════
+   COMMUNITY
+════════════════════════════════════════ */
+#community {
+  text-align:center;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,229,255,.05) 0%, transparent 60%);
+}
+.comm-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1.2rem; margin-top:3rem;
+}
+@media(max-width:900px){ .comm-grid{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:500px){ .comm-grid{grid-template-columns:1fr} }
+.comm-card {
+  background:var(--surface);
+  border:1px solid rgba(0,229,255,.1);
+  border-radius:18px; padding:1.9rem 1.5rem;
+  text-decoration:none; color:var(--text);
+  display:flex; flex-direction:column; align-items:center; gap:.8rem;
+  transition:transform .3s, box-shadow .3s, border-color .3s;
+  position:relative; overflow:hidden; will-change:transform;
+}
+.comm-card::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(0,229,255,.07),rgba(123,47,255,.07));
+  opacity:0; transition:opacity .3s;
+}
+.comm-card:hover::before { opacity:1; }
+.comm-card:hover {
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 14px 44px rgba(0,229,255,.14), 0 0 0 1px rgba(0,229,255,.3);
+  border-color:rgba(0,229,255,.38);
+}
+.comm-icon { font-size:2.1rem; filter:drop-shadow(0 0 8px rgba(0,229,255,.4)); }
+.comm-name { font-family:'Space Grotesk',sans-serif; font-size:.96rem; font-weight:600; }
+.comm-sub { font-size:.76rem; color:var(--muted); }
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+footer {
+  position:relative; z-index:2;
+  background:#030310;
+  padding:2.4rem 2.5rem;
+  border-top:1px solid rgba(0,229,255,.08);
+}
+.footer-shimmer {
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),var(--pink),var(--violet),var(--cyan),transparent);
+  background-size:200% 100%;
+  animation:shimmer 4s linear infinite;
+}
+@keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+.footer-inner {
+  max-width:1200px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:1.5rem;
+}
+.footer-logo { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.2rem; }
+.footer-logo span { color:var(--cyan); }
+.footer-copy { font-size:.8rem; color:var(--muted); text-align:center; }
+.footer-email { font-size:.8rem; color:var(--muted); text-decoration:none; transition:color .2s; }
+.footer-email:hover { color:var(--cyan); }
+.footer-built-by {
+  color:var(--cyan); text-decoration:none; font-weight:600;
+  border-bottom:1px solid rgba(0,229,255,.4);
+  transition:color .2s, border-color .2s, text-shadow .2s;
+}
+.footer-built-by:hover {
+  color:#fff; border-color:var(--cyan);
+  text-shadow:0 0 12px rgba(0,229,255,.7);
+}
+.footer-contract {
+  width:100%; text-align:center;
+  padding-top:1.5rem; border-top:1px solid var(--border);
+  margin-top:.8rem;
+  display:flex; align-items:center; justify-content:center;
+  gap:.75rem; flex-wrap:wrap;
+}
+.fc-label { font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
+.fc-addr { font-family:'Space Grotesk',monospace; font-size:.78rem; color:var(--cyan); }
+
+/* ════════════════════════════════════════
+   MOBILE responsive overrides
+════════════════════════════════════════ */
+@media(max-width:768px){
+  /* hide custom cursor on touch devices */
+  #cursor-ring, #cursor-dot { display:none; }
+  body { cursor:auto; }
+
+  /* navbar */
+  #navbar { padding:1rem 1.25rem; }
+
+  /* hero */
+  #hero { padding:6rem 1.25rem 3.5rem; min-height:100svh; }
+  .hero-h1 { font-size:clamp(2rem,8vw,3rem); }
+  .hero-sub { font-size:.95rem; }
+  .hero-btns { flex-direction:column; }
+  .btn-primary, .btn-outline { width:100%; justify-content:center; }
+  .contract-row { flex-wrap:wrap; }
+  .contract-addr { font-size:.72rem; word-break:break-all; }
+  .hero-stats { gap:0; }
+  .stat-item { padding-right:1.5rem; margin-right:1.5rem; }
+
+  /* sections */
+  section { padding:4rem 1.25rem; }
+
+  /* about */
+  .about-grid { grid-template-columns:1fr; gap:2.5rem; }
+  .bento-grid { grid-template-columns:1fr 1fr; gap:.75rem; }
+  .about-lead { font-size:clamp(1.6rem,7vw,2.2rem); }
+
+  /* steps */
+  .steps-wrap { flex-direction:column; align-items:center; gap:1rem; }
+  .step-card { width:100%; max-width:340px; }
+
+  /* tokenomics */
+  .token-chart-wrap { flex-direction:column; gap:2rem; }
+  .token-stats { grid-template-columns:1fr 1fr; }
+  .contract-block { flex-direction:column; text-align:center; }
+  .cb-addr { font-size:.75rem; word-break:break-all; }
+
+  /* team */
+  .team-card { padding:2rem 1.5rem; }
+
+  /* community grid */
+  .comm-grid { grid-template-columns:1fr 1fr; gap:.9rem; }
+  .comm-card { padding:1.4rem 1rem; }
+
+  /* footer */
+  .footer-inner { flex-direction:column; align-items:center; text-align:center; gap:1rem; }
+  .fc-addr { font-size:.68rem; word-break:break-all; }
+
+  /* sec headings */
+  .sec-h2 { font-size:clamp(1.7rem,6vw,2.4rem); }
+}
+
+@media(max-width:480px){
+  .bento-grid { grid-template-columns:1fr; }
+  .token-stats { grid-template-columns:1fr; }
+  .comm-grid { grid-template-columns:1fr; }
+  .hero-stats { flex-direction:column; gap:1rem; }
+  .stat-item { border-right:none; margin-right:0; padding-right:0; }
+}
+</style>
 </head>
 <body>
-  <header>
-    <!-- Logo -->
-    <img src="logo.png" alt="LondrCoin Logo" width="96" height="96">
-    <h1>LondrCoin ($LONDR)</h1>
-    <p>Utility Token for the Gig Economy</p>
-  </header>
 
-  <!-- ===== About / Team ===== -->
-  <section id="about">
-    <h1>About LondrCoin</h1>
-    <p>
-      <strong>LondrCoin ($LONDR)</strong> is an ERC-20 token powering the Londr ecosystem—bridging decentralized finance
-      with real-world gig services such as laundry pickup &amp; delivery. The token enables utility, community rewards,
-      and liquidity across Londr-powered services.
-    </p>
+<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
 
-    <div class="grid">
-      <!-- Project quick facts -->
-      <div class="card">
-        <h2>Project Facts</h2>
-        <ul>
-          <li><strong>Contract:</strong> <code>0x97d1A1b493D83A35A30d7D868e0e1D821F15D424</code></li>
-          <li><strong>Standard:</strong> ERC-20</li>
-          <li><strong>Launch:</strong> Liquidity added directly on Uniswap (no ICO/IEO; no private/seed sale)</li>
-          <li><strong>Entity:</strong> Developed by Londr LLC (U.S.)</li>
-        </ul>
-      </div>
+<!-- Intro overlay: JS shows it immediately then animates it away -->
+<div id="intro-overlay">
+  <div id="intro-text">
+    <span class="glitch" data-text="$LONDR">$LONDR</span>
+  </div>
+</div>
 
-      <!-- Team card -->
-      <div class="card">
-        <h2>Team</h2>
-        <article style="display:flex;gap:14px;align-items:center;">
-          <div>
-            <div style="font-weight:700;">Benjamin Johnson</div>
-            <div style="color:#4a5568;margin-bottom:6px;">Founder &amp; CEO</div>
-            <div style="display:flex;gap:10px;align-items:center;">
-              <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank">LinkedIn</a>
-              <a href="https://github.com/johnsonb1234" target="_blank">GitHub</a>
-            </div>
-          </div>
-        </article>
-      </div>
+<div id="tsparticles"></div>
+
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <span class="nav-dot"></span>$LONDR
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#tokenomics">Tokenomics</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="https://app.uniswap.org/" target="_blank" class="btn-nav">Buy $LONDR</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div id="mobile-menu">
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#tokenomics" onclick="toggleMenu()">Tokenomics</a>
+  <a href="#team" onclick="toggleMenu()">Team</a>
+  <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="https://app.uniswap.org/" target="_blank" class="btn-nav">Buy $LONDR</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-shapes">
+    <div class="hs"></div><div class="hs"></div>
+    <div class="hs"></div><div class="hs"></div><div class="hs"></div>
+  </div>
+
+  <!-- Coin image with orbital rings -->
+  <div class="hero-coin" aria-hidden="true">
+    <div class="hero-coin-ring hero-coin-ring-1"></div>
+    <div class="hero-coin-ring hero-coin-ring-2"></div>
+    <div class="hero-coin-ring hero-coin-ring-3"></div>
+    <img src="lundrcoin.png" alt="LondrCoin" class="hero-coin-img" id="coin-img">
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-blink"></span> ✦ ERC-20 · Ethereum
     </div>
-
-    <p style="margin-top:22px;">
-      LondrCoin is designed for utility within the Londr ecosystem. No token sale (public or private) was conducted.
-      Liquidity was supplied to Uniswap to ensure open market access from day one.
-    </p>
-  </section>
-
-  <!-- ===== Official Links & FAQ ===== -->
-  <section id="links">
-    <div class="grid">
-      <div class="card">
-        <h2>Official Links</h2>
-        <ul>
-          <li><strong>Website:</strong> <a href="https://www.londrcoin.com">londrcoin.com</a></li>
-          <li><strong>Litepaper:</strong> <a href="/LondrCoin_Litepaper.pdf" target="_blank">LondrCoin_Litepaper.pdf</a></li>
-          <li><strong>Contract:</strong> <code>0x97d1A1b493D83A35A30d7D868e0e1D821F15D424</code></li>
-          <li><strong>Telegram:</strong> <a href="https://t.me/LondrCoinOfficial" target="_blank">t.me/LondrCoinOfficial</a></li>
-          <li><strong>GitHub:</strong> <a href="https://github.com/johnsonb1234/londrcoin" target="_blank">github.com/johnsonb1234/londrcoin</a></li>
-          <li><strong>Facebook:</strong> <a href="https://www.facebook.com/londrcoin" target="_blank">facebook.com/londrcoin</a></li>
-          <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/londrcoin" target="_blank">linkedin.com/company/londrcoin</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>Key FAQ</h2>
-        <details>
-          <summary><strong>Was there an ICO/IEO?</strong></summary>
-          <div>No. LondrCoin did not conduct any public sale. Liquidity was added directly on Uniswap.</div>
-        </details>
-        <details>
-          <summary><strong>Any private/seed allocations?</strong></summary>
-          <div>No private or seed sale was conducted; no early allocations, discounts, or vesting schedules.</div>
-        </details>
-        <details>
-          <summary><strong>What does the token do?</strong></summary>
-          <div>$LONDR provides utility and rewards within the Londr ecosystem for real-world services like laundry pickup &amp; delivery.</div>
-        </details>
-      </div>
+    <h1 class="hero-h1">The Coin That Powers<br>the Real World</h1>
+    <p class="hero-sub">$LONDR brings decentralized utility to everyday gig services, starting with laundry.</p>
+    <div class="hero-btns">
+      <a href="https://app.uniswap.org/" target="_blank" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+        Buy on Uniswap
+      </a>
+      <a href="https://www.londrcoin.com/LondrCoin_Litepaper.pdf" target="_blank" class="btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Read Litepaper
+      </a>
     </div>
-  </section>
+    <div class="contract-row">
+      <span class="contract-label">Contract</span>
+      <span class="contract-addr">0x97d1A1b493D83A35A30d7D868e0e1D821F15D424</span>
+      <button class="copy-btn" id="copy-hero" onclick="copyAddr('copy-hero')" title="Copy">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-value">ERC-20</div><div class="stat-label">Standard</div></div>
+      <div class="stat-item"><div class="stat-value">0</div><div class="stat-label">Private Sales</div></div>
+      <div class="stat-item"><div class="stat-value">Open</div><div class="stat-label">Market Launch</div></div>
+    </div>
+  </div>
+</section>
 
-  <!-- ===== Footer ===== -->
-  <footer>
-    <div>
+<div class="divider"></div>
+
+<!-- ══ MARQUEE ══ -->
+<div id="marquee-bar" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>$LONDR</span><span class="dot">·</span>
+    <span>ERC-20</span><span class="dot">·</span>
+    <span>UNISWAP</span><span class="dot">·</span>
+    <span>GIG ECONOMY</span><span class="dot">·</span>
+    <span>LAUNDRY</span><span class="dot">·</span>
+    <span>UTILITY TOKEN</span><span class="dot">·</span>
+    <span>CONTRACT: 0x97d1...D424</span><span class="dot">·</span>
+    <span>NO ICO</span><span class="dot">·</span>
+    <span>NO PRESALE</span><span class="dot">·</span>
+    <span>LONDR LLC</span><span class="dot">·</span>
+    <span>$LONDR</span><span class="dot">·</span>
+    <span>ERC-20</span><span class="dot">·</span>
+    <span>UNISWAP</span><span class="dot">·</span>
+    <span>GIG ECONOMY</span><span class="dot">·</span>
+    <span>LAUNDRY</span><span class="dot">·</span>
+    <span>UTILITY TOKEN</span><span class="dot">·</span>
+    <span>CONTRACT: 0x97d1...D424</span><span class="dot">·</span>
+    <span>NO ICO</span><span class="dot">·</span>
+    <span>NO PRESALE</span><span class="dot">·</span>
+    <span>LONDR LLC</span><span class="dot">·</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
       <div>
-        © 2025 Londr LLC. All rights reserved. ·
-        <a href="mailto:info@londrcoin.com">info@londrcoin.com</a>
+        <div class="sec-label">About LondrCoin</div>
+        <h2 class="about-lead">Real Utility.<br>Real World.<br><span class="cy">Real Coin.</span></h2>
+        <p class="about-p">$LONDR is the native utility token of the Londr ecosystem, a decentralized bridge between the Web3 economy and real-world gig services. Built on Ethereum and launched directly on Uniswap with no presale and no private allocations.</p>
+        <p class="about-p">The token enables payments for gig services like laundry pickup and delivery, powers community rewards, and provides liquidity for an open, permissionless ecosystem. Every holder participates on equal footing from day one.</p>
       </div>
-      <div style="display:flex;gap:12px;">
-        <a href="https://t.me/LondrCoinOfficial" target="_blank">Telegram</a>
-        <a href="https://github.com/johnsonb1234/londrcoin" target="_blank">GitHub</a>
-        <a href="https://www.linkedin.com/company/londrcoin" target="_blank">LinkedIn</a>
-        <a href="/LondrCoin_Litepaper.pdf" target="_blank">Litepaper</a>
+      <div class="bento-grid">
+        <div class="bento-card">
+          <div class="bento-icon">🔗</div>
+          <div class="bento-title">ERC-20 Standard</div>
+          <div class="bento-desc">Built on Ethereum, fully compatible with all wallets and DEXs from day one.</div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-icon">🚀</div>
+          <div class="bento-title">Uniswap Launch</div>
+          <div class="bento-desc">No ICO. Liquidity added directly to Uniswap, open and permissionless.</div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-icon">🛡️</div>
+          <div class="bento-title">No Private Sale</div>
+          <div class="bento-desc">Zero early allocations, discounts, or vesting schedules. Fair launch only.</div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-icon">🌐</div>
+          <div class="bento-title">Londr Ecosystem</div>
+          <div class="bento-desc">Powers real gig services starting with laundry pickup and delivery.</div>
+        </div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="sec-label" style="justify-content:center">How It Works</div>
+    <h2 class="sec-h2" style="text-align:center">Three Steps to the<br><span style="color:var(--cyan)">Gig Economy</span></h2>
+    <div class="steps-wrap">
+      <svg class="step-line-svg" height="2" viewBox="0 0 600 2" preserveAspectRatio="none">
+        <line id="step-line" x1="0" y1="1" x2="600" y2="1"/>
+      </svg>
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon">💎</div>
+        <div class="step-title">Get $LONDR</div>
+        <div class="step-desc">Buy on Uniswap using ETH. Connect any ERC-20 compatible wallet and swap directly.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon">🧺</div>
+        <div class="step-title">Use the Ecosystem</div>
+        <div class="step-desc">Pay for Londr gig services with $LONDR, starting with laundry pickup and delivery.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon">⚡</div>
+        <div class="step-title">Earn Rewards</div>
+        <div class="step-desc">Community rewards for participation, loyalty, and contributing to the ecosystem.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ TOKENOMICS ══ -->
+<section id="tokenomics">
+  <div class="container">
+    <div class="sec-label" style="justify-content:center">Tokenomics</div>
+    <h2 class="sec-h2" style="text-align:center"><span class="underline-anim" id="tok-ul">Tokenomics</span></h2>
+    <div class="token-chart-wrap">
+      <div class="donut-wrap">
+        <svg id="donut-svg" viewBox="0 0 180 180">
+          <circle cx="90" cy="90" r="70" fill="none" stroke="#0D0D2B" stroke-width="28"/>
+          <!-- Pre-set final state so chart is visible without JS; GSAP animates from 0 on scroll -->
+          <circle id="seg1" cx="90" cy="90" r="70" fill="none" stroke="#00E5FF" stroke-width="28" stroke-dasharray="264 176" stroke-dashoffset="0"/>
+          <circle id="seg2" cx="90" cy="90" r="70" fill="none" stroke="#7B2FFF" stroke-width="28" stroke-dasharray="88 352"  stroke-dashoffset="-264"/>
+          <circle id="seg3" cx="90" cy="90" r="70" fill="none" stroke="#FF4ECD" stroke-width="28" stroke-dasharray="66 374"  stroke-dashoffset="-352"/>
+          <circle id="seg4" cx="90" cy="90" r="70" fill="none" stroke="#00FF88" stroke-width="28" stroke-dasharray="22 418"  stroke-dashoffset="-418"/>
+        </svg>
+        <div class="donut-label">
+          <div class="dl-value">100%</div>
+          <div class="dl-sub">Public</div>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="leg-item"><div class="leg-dot" style="background:#00E5FF"></div><div class="leg-lbl">Uniswap Liquidity</div><div class="leg-val">60%</div></div>
+        <div class="leg-item"><div class="leg-dot" style="background:#7B2FFF"></div><div class="leg-lbl">Community Rewards</div><div class="leg-val">20%</div></div>
+        <div class="leg-item"><div class="leg-dot" style="background:#FF4ECD"></div><div class="leg-lbl">Ecosystem Growth</div><div class="leg-val">15%</div></div>
+        <div class="leg-item"><div class="leg-dot" style="background:#00FF88"></div><div class="leg-lbl">Operations Reserve</div><div class="leg-val">5%</div></div>
+      </div>
+    </div>
+    <div class="token-stats">
+      <div class="tstat"><div class="tstat-lbl">Supply</div><div class="tstat-val">Public</div></div>
+      <div class="tstat"><div class="tstat-lbl">Launch Type</div><div class="tstat-val">Open Market via Uniswap</div></div>
+      <div class="tstat"><div class="tstat-lbl">Private Allocations</div><div class="tstat-val">None</div></div>
+      <div class="tstat"><div class="tstat-lbl">ICO / IEO</div><div class="tstat-val">None</div></div>
+      <div class="tstat"><div class="tstat-lbl">Network</div><div class="tstat-val">Ethereum (ERC-20)</div></div>
+    </div>
+    <div class="contract-block">
+      <span class="cb-label">Contract Address</span>
+      <span class="cb-addr">0x97d1A1b493D83A35A30d7D868e0e1D821F15D424</span>
+      <button class="copy-btn" id="copy-tok" onclick="copyAddr('copy-tok')" title="Copy">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+      <a href="https://etherscan.io/address/0x97d1A1b493D83A35A30d7D868e0e1D821F15D424" target="_blank" class="btn-esc">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View on Etherscan
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ TEAM ══ -->
+<section id="team">
+  <div class="container">
+    <div class="sec-label" style="justify-content:center">The Team</div>
+    <h2 class="sec-h2" style="text-align:center">Built by Believers.</h2>
+    <div style="margin-top:3rem;text-align:center">
+      <div class="team-card">
+        <div class="avatar-wrap">
+          <div class="avatar-bg"><img src="ben.png" alt="Benjamin Johnson"></div>
+          <div class="avatar-ring"></div>
+        </div>
+        <div class="member-name">Benjamin Johnson</div>
+        <div class="member-role">Founder &amp; CEO</div>
+        <p class="member-bio">Building the bridge between Web3 and the everyday gig economy.</p>
+        <div class="social-row">
+          <a href="https://www.linkedin.com/in/benjamin-johnson-4b6479119/" target="_blank" class="soc-btn" title="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://github.com/johnsonb1234/londrcoin" target="_blank" class="soc-btn" title="GitHub">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ FAQ ══ -->
+<section id="faq">
+  <div class="container">
+    <div class="sec-label" style="justify-content:center">FAQ</div>
+    <h2 class="sec-h2" style="text-align:center">Common Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Was there an ICO or IEO?<span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">No. LondrCoin launched directly on Uniswap with no Initial Coin Offering (ICO) or Initial Exchange Offering (IEO) of any kind. The token has been available on the open market from the very first moment.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Were there any private or seed allocations?<span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely none. There are zero private sale allocations, seed rounds, or discounted distributions. Every single token is available to the public on equal terms through Uniswap.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What does $LONDR actually do?<span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">$LONDR is a utility token that powers the Londr gig economy ecosystem. Holders can use it to pay for services like laundry pickup and delivery, earn community rewards, and participate in the growth of the Londr platform as it expands.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How do I buy $LONDR?<span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Go to Uniswap (app.uniswap.org), connect your Ethereum wallet (MetaMask, Rainbow, Coinbase Wallet, etc.), and swap ETH for $LONDR using the contract address: 0x97d1A1b493D83A35A30d7D868e0e1D821F15D424. Always verify the contract address before trading.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Which wallet should I use?<span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Any ERC-20 compatible Ethereum wallet works: MetaMask, Rainbow Wallet, Coinbase Wallet, Trust Wallet, or hardware wallets like Ledger. Make sure you have ETH for gas fees and the swap itself.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Is LondrCoin audited?<span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">The smart contract is publicly verifiable on Etherscan. We encourage all community members to review the code. Formal third-party audit details will be shared via official channels. Follow our Telegram and GitHub for the latest updates.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ COMMUNITY ══ -->
+<section id="community">
+  <div class="container">
+    <div class="sec-label" style="justify-content:center">Community</div>
+    <h2 class="sec-h2" style="text-align:center">Join the Community</h2>
+    <p style="color:var(--muted);max-width:480px;margin:0 auto;line-height:1.75;font-size:.98rem;text-align:center">
+      Stay connected across all official channels. Always verify you're on official links before connecting your wallet.
+    </p>
+    <div class="comm-grid">
+      <a href="https://t.me/LondrCoinOfficial" target="_blank" class="comm-card">
+        <div class="comm-icon">✈️</div>
+        <div class="comm-name">Telegram</div>
+        <div class="comm-sub">@LondrCoinOfficial</div>
+      </a>
+      <a href="https://github.com/johnsonb1234/londrcoin" target="_blank" class="comm-card">
+        <div class="comm-icon">🐙</div>
+        <div class="comm-name">GitHub</div>
+        <div class="comm-sub">johnsonb1234/londrcoin</div>
+      </a>
+      <a href="https://www.linkedin.com/company/londrcoin" target="_blank" class="comm-card">
+        <div class="comm-icon">💼</div>
+        <div class="comm-name">LinkedIn</div>
+        <div class="comm-sub">company/londrcoin</div>
+      </a>
+      <a href="https://www.facebook.com/londrcoin" target="_blank" class="comm-card">
+        <div class="comm-icon">📘</div>
+        <div class="comm-name">Facebook</div>
+        <div class="comm-sub">facebook.com/londrcoin</div>
+      </a>
+      <a href="https://www.londrcoin.com/LondrCoin_Litepaper.pdf" target="_blank" class="comm-card">
+        <div class="comm-icon">📄</div>
+        <div class="comm-name">Litepaper</div>
+        <div class="comm-sub">Read the Litepaper</div>
+      </a>
+      <a href="https://etherscan.io/address/0x97d1A1b493D83A35A30d7D868e0e1D821F15D424" target="_blank" class="comm-card">
+        <div class="comm-icon">🔍</div>
+        <div class="comm-name">Etherscan</div>
+        <div class="comm-sub">0x97d1...D424</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-shimmer"></div>
+  <div class="footer-inner">
+    <div class="footer-logo">$<span>LONDR</span></div>
+    <div class="footer-copy">© 2025 Londr LLC. All rights reserved.</div>
+    <a href="mailto:info@londrcoin.com" class="footer-email">info@londrcoin.com</a>
+    <div class="footer-contract">
+      <span class="fc-label">Contract</span>
+      <span class="fc-addr">0x97d1A1b493D83A35A30d7D868e0e1D821F15D424</span>
+      <button class="copy-btn" id="copy-ft" onclick="copyAddr('copy-ft')" title="Copy">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+    </div>
+    <div class="footer-copy" style="margin-top:.5rem">Built with ❤️ by <a href="https://www.linkedin.com/in/veer-pratap-singh/" target="_blank" rel="noopener" class="footer-built-by">Veer</a></div>
+  </div>
+</footer>
+
+<!-- ══════════════ JAVASCRIPT ══════════════ -->
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ─ INTRO ─ */
+const overlay = document.getElementById('intro-overlay');
+overlay.style.display = 'flex'; /* show immediately — hidden by CSS for no-JS */
+gsap.timeline({ onComplete: () => { overlay.style.display = 'none'; initPage(); } })
+  .from('#intro-text',  { scale:.5, opacity:0, duration:.6, ease:'power3.out' })
+  .to('#intro-text',    { scale:1.18, duration:.4, ease:'power2.in' }, '+=.45')
+  .to(overlay,          { opacity:0, duration:.55, ease:'power2.inOut' }, '+=.15')
+  .from('#navbar',      { y:-80, opacity:0, duration:.5, ease:'power3.out' }, '-=.2');
+
+function initPage() {
+  animateHeroContent();
+  initCursor();
+  initNavScroll();
+  initScrollReveal();
+  initBentoTilt();
+  initCoinParallax();
+  initParticles();
+}
+
+/* ─ HERO CONTENT ANIMATION ─ */
+function animateHeroContent() {
+  const tl = gsap.timeline();
+  tl.from('.hero-badge',    { y:24, opacity:0, duration:.5, ease:'power3.out' })
+    .from('.hero-h1',       { y:40, opacity:0, duration:.65, ease:'power3.out' }, '-=.25')
+    .from('.hero-sub',      { y:22, opacity:0, duration:.5,  ease:'power3.out' }, '-=.35')
+    .from('.hero-btns',     { y:18, opacity:0, duration:.45, ease:'power3.out' }, '-=.3')
+    .from('.contract-row',  { y:16, opacity:0, duration:.4,  ease:'power3.out' }, '-=.25')
+    .from('.hero-stats',    { y:16, opacity:0, duration:.4,  ease:'power3.out' }, '-=.2');
+}
+
+/* ─ CURSOR ─ */
+function initCursor() {
+  const ring = document.getElementById('cursor-ring');
+  const dot  = document.getElementById('cursor-dot');
+  let mx=0, my=0, rx=0, ry=0, revealed=false;
+
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    gsap.to(dot,{x:mx,y:my,duration:.05});
+    if(!revealed){
+      revealed=true;
+      gsap.to([ring,dot],{opacity:1,duration:.3});
+    }
+  });
+
+  (function loop(){
+    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+    gsap.set(ring,{x:rx,y:ry});
+    requestAnimationFrame(loop);
+  })();
+
+  document.querySelectorAll('a,button,.faq-q,.hamburger').forEach(el=>{
+    el.addEventListener('mouseenter',()=>gsap.to(ring,{scale:1.65,borderColor:'#FF4ECD',duration:.2}));
+    el.addEventListener('mouseleave',()=>gsap.to(ring,{scale:1,borderColor:'#00E5FF',duration:.2}));
+  });
+}
+
+/* ─ NAVBAR SCROLL ─ */
+function initNavScroll() {
+  ScrollTrigger.create({
+    start:'top -80',
+    onUpdate: s => document.getElementById('navbar').classList.toggle('scrolled', s.scroll()>80)
+  });
+}
+
+/* ─ SCROLL REVEAL ─ */
+function initScrollReveal() {
+  /* GSAP sets opacity:0 at runtime — content is visible without JS */
+  const fade = (selector, opts={}) => {
+    gsap.utils.toArray(selector).forEach((el,i) => {
+      gsap.from(el, {
+        scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:'play none none none' },
+        y: opts.y ?? 28, x: opts.x ?? 0,
+        opacity:0, duration:.7,
+        delay: (i % 4) * (opts.stagger ?? .08),
+        ease:'power3.out'
+      });
+    });
+  };
+
+  fade('.about-lead, .about-p', { y:30, stagger:.1 });
+  fade('.sec-label',  { y:16 });
+  fade('.sec-h2',     { y:24 });
+
+  gsap.from('.bento-card', {
+    scrollTrigger:{ trigger:'.bento-grid', start:'top 82%' },
+    y:40, opacity:0, stagger:.12, duration:.65, ease:'power3.out'
+  });
+
+  gsap.from('.step-card', {
+    scrollTrigger:{ trigger:'.steps-wrap', start:'top 78%' },
+    scale:.82, opacity:0, stagger:.2, duration:.6, ease:'back.out(1.5)'
+  });
+
+  gsap.from('.tstat', {
+    scrollTrigger:{ trigger:'.token-stats', start:'top 84%' },
+    y:24, opacity:0, stagger:.07, duration:.55, ease:'power3.out'
+  });
+
+  gsap.from('.comm-card', {
+    scrollTrigger:{ trigger:'.comm-grid', start:'top 82%' },
+    y:36, opacity:0, stagger:.08, duration:.6, ease:'power3.out'
+  });
+
+  gsap.from('.team-card', {
+    scrollTrigger:{ trigger:'.team-card', start:'top 82%' },
+    y:40, scale:.95, opacity:0, duration:.7, ease:'power3.out'
+  });
+
+  gsap.from('.faq-item', {
+    scrollTrigger:{ trigger:'.faq-list', start:'top 82%' },
+    y:20, opacity:0, stagger:.07, duration:.5, ease:'power3.out'
+  });
+
+  gsap.from('.contract-block', {
+    scrollTrigger:{ trigger:'.contract-block', start:'top 88%' },
+    y:20, opacity:0, duration:.55, ease:'power3.out'
+  });
+
+  /* Tokenomics underline */
+  ScrollTrigger.create({
+    trigger:'#tok-ul', start:'top 82%', once:true,
+    onEnter:()=>document.getElementById('tok-ul').classList.add('lit')
+  });
+
+  /* Donut chart */
+  const C = 2*Math.PI*70;
+  const segs = [
+    {id:'seg1',pct:.60,off:0},
+    {id:'seg2',pct:.20,off:.60},
+    {id:'seg3',pct:.15,off:.80},
+    {id:'seg4',pct:.05,off:.95}
+  ];
+  ScrollTrigger.create({
+    trigger:'#donut-svg', start:'top 82%', once:true,
+    onEnter:()=>{
+      segs.forEach((s,i)=>{
+        const el=document.getElementById(s.id);
+        const len=s.pct*C, gap=C-len, ofs=-(s.off*C);
+        gsap.set(el,{strokeDasharray:`0 ${C}`,strokeDashoffset:ofs});
+        gsap.to(el,{strokeDasharray:`${len} ${gap}`,delay:i*.22+.3,duration:.9,ease:'power2.out'});
+      });
+    }
+  });
+
+  /* Step SVG line */
+  const sl = document.getElementById('step-line');
+  if(sl){
+    gsap.set(sl,{strokeDasharray:'7 5',strokeDashoffset:200});
+    gsap.to(sl,{
+      scrollTrigger:{trigger:'.steps-wrap',start:'top 78%'},
+      strokeDashoffset:0, duration:1.5, ease:'power2.inOut'
+    });
+  }
+}
+
+/* ─ BENTO TILT ─ */
+function initBentoTilt() {
+  document.querySelectorAll('.bento-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      gsap.to(card,{rotateY:x*14,rotateX:-y*14,duration:.3,ease:'power2.out',transformPerspective:800});
+    });
+    card.addEventListener('mouseleave',()=>gsap.to(card,{rotateY:0,rotateX:0,duration:.5,ease:'power2.out'}));
+  });
+}
+
+/* ─ COIN IMAGE PARALLAX & MOUSE TILT ─ */
+function initCoinParallax() {
+  const coinEl = document.getElementById('coin-img');
+  if(!coinEl) return;
+
+  /* Scroll: coin drifts up and fades as hero leaves viewport */
+  ScrollTrigger.create({
+    trigger:'#hero', start:'top top', end:'bottom top',
+    onUpdate: s => {
+      const p = s.progress;
+      gsap.set(coinEl.parentElement, { y: p * -80, opacity: 1 - p * 1.2 });
+    }
+  });
+
+  /* Mouse: subtle 3-D tilt on the coin */
+  let mx=0, my=0;
+  document.addEventListener('mousemove', e => {
+    mx = (e.clientX / window.innerWidth  - 0.5) * 2;
+    my = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+  (function tiltLoop(){
+    requestAnimationFrame(tiltLoop);
+    gsap.set(coinEl, { rotateY: mx * 14, rotateX: -my * 10, transformPerspective: 900 });
+  })();
+}
+
+/* ─ PARTICLES ─ */
+function initParticles() {
+  const mob = window.innerWidth<768;
+  tsParticles.load('tsparticles',{
+    background:{color:'transparent'},
+    fpsLimit:60,
+    particles:{
+      number:{value:mob?35:80,density:{enable:true,value_area:900}},
+      color:{value:['#00E5FF','#7B2FFF','#FF4ECD']},
+      shape:{type:'circle'},
+      opacity:{value:.3,random:true,anim:{enable:true,speed:.5,opacity_min:.04,sync:false}},
+      size:{value:1.4,random:true},
+      links:{enable:true,distance:150,color:'#00E5FF',opacity:.055,width:1},
+      move:{enable:true,speed:.55,direction:'none',random:true,out_mode:'out'}
+    },
+    interactivity:{
+      detect_on:'canvas',
+      events:{onhover:{enable:!mob,mode:'grab'},resize:true},
+      modes:{grab:{distance:140,links:{opacity:.16}}}
+    },
+    retina_detect:true
+  });
+}
+
+/* ─ FAQ ─ */
+function toggleFaq(q) {
+  const item = q.parentElement;
+  const ans  = item.querySelector('.faq-a');
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>{
+    i.classList.remove('open');
+    gsap.to(i.querySelector('.faq-a'),{maxHeight:0,duration:.32,ease:'power2.inOut'});
+  });
+  if(!open){
+    item.classList.add('open');
+    gsap.to(ans,{maxHeight:ans.querySelector('.faq-a-inner').scrollHeight+24,duration:.38,ease:'power2.out'});
+  }
+}
+
+/* ─ COPY ─ */
+function copyAddr(id) {
+  navigator.clipboard.writeText('0x97d1A1b493D83A35A30d7D868e0e1D821F15D424').then(()=>{
+    const btn=document.getElementById(id);
+    btn.classList.add('copied');
+    btn.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00FF88" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`;
+    setTimeout(()=>{ btn.classList.remove('copied'); btn.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`; },2000);
+  });
+}
+
+/* ─ MOBILE MENU ─ */
+function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open');}
+document.querySelectorAll('#mobile-menu a[href^="#"]').forEach(a=>a.addEventListener('click',()=>document.getElementById('mobile-menu').classList.remove('open')));
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}}));
+</script>
 </body>
 </html>
